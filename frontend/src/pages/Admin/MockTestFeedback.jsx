@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import AdminLayout from '../mainAdmin/AdminLayout/AdminLayout';
 import './MockTestFeedback.css';
 
 const MockTestFeedback = () => {
@@ -118,6 +119,7 @@ const MockTestFeedback = () => {
   };
 
   return (
+    <AdminLayout>
     <div className="admin-feedback-container">
       <div className="feedback-header-section">
         <h1>Mock Test Feedback Management</h1>
@@ -324,6 +326,7 @@ const MockTestFeedback = () => {
         </div>
       )}
     </div>
+    </AdminLayout>
   );
 };
 
