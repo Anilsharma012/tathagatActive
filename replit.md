@@ -54,6 +54,21 @@ The application runs in development mode without a database, using mock data fal
 - Admin panel for content management
 
 ## Recent Changes
+- 2026-01-01: Free Mock Tests in Downloads Section
+  - Added downloadStatus field (PUBLISHED/COMING_SOON) to MockTest model
+  - Free mock tests (created without course) now appear in Admin Downloads section
+  - Admin can toggle Published/Coming Soon status for free mock tests
+  - Frontend MockTest page now fetches and displays free mock tests alongside other tests
+  - Clicking "Attempt Now" on free mock tests redirects to dashboard mock-tests section
+  - Added validation: only free tests without a course can be toggled in downloads
+
+- 2026-01-01: Removed Notification Settings from User Profile
+  - Removed the Notification Settings section from student Dashboard profile
+  - Removed Email Notifications, SMS Reminders, and Performance Reports toggles
+
+- 2026-01-01: Test Feedback Admin Sidebar Fix
+  - Added AdminLayout to MockTestFeedback.jsx for consistent sidebar navigation
+
 - 2026-01-01: Consistent Admin Sidebar Navigation
   - Added AdminLayout wrapper to all 20+ admin pages for consistent sidebar
   - Pages updated: PracticeTestManagement, MockTestManagement, StudentPerformance, ImageGalleryManagement, Announcements, BlogManagement, BulkUpload, DemoVideoManagement, DiscussionManagement, DownloadsManagement, HierarchyManagement, LiveClasses, PdfManagement, ScoreCardManagement, StudyMaterials, SuccessStoryManagement, TopperFeedbackManagement, TopPerformerManagement, ZoomManagement, CoursePurchaseContentManagement

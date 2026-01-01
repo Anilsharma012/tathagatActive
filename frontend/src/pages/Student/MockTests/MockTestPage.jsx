@@ -56,7 +56,7 @@ const MockTestPage = () => {
               <h3 className="exam-title">{exam}</h3>
               <div className="papers-grid">
                 {data.paperWise[exam].exams && data.paperWise[exam].exams.map((paper) => (
-                  <div key={paper.id} className="test-card">
+                  <div key={paper.id} id={`mock-test-${paper.id}`} className="test-card">
                     <div className="test-card-header">
                       <h4>{exam} {paper.yearLabel}</h4>
                       <span className="test-badge previous-year">Previous Year</span>
@@ -94,7 +94,7 @@ const MockTestPage = () => {
               <h3 className="subject-title">{subject}</h3>
               <div className="topics-grid">
                 {data.topicWise[subject].topics && data.topicWise[subject].topics.map((topic) => (
-                  <div key={topic.id} className="test-card">
+                  <div key={topic.id} id={`mock-test-${topic.id}`} className="test-card">
                     <div className="test-card-header">
                       <h4>{topic.topic || topic.title}</h4>
                       <span className="test-badge topic-wise">Topic Wise</span>

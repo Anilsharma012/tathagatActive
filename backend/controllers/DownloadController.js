@@ -470,6 +470,10 @@ exports.toggleFreeMockTestStatus = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Test not found' });
     }
     
+    if (!test.isFree || test.courseId) {
+      return res.status(400).json({ success: false, message: 'Only free mock tests without a course can be toggled' });
+    }
+    
     test.downloadStatus = status;
     await test.save();
     

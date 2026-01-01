@@ -66,7 +66,7 @@ const MockTest = () => {
         const freeMockTests = freeMockRes.data.tests.map(t => ({
           ...t,
           type: "PREVIOUS_YEAR",
-          categoryId: t.categoryId ? { _id: t.categoryId, name: t.category } : null
+          categoryId: t.categoryId || null
         }));
         allPreviousYearTests = [...allPreviousYearTests, ...freeMockTests];
       }

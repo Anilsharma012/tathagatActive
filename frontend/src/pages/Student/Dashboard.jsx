@@ -867,6 +867,27 @@ const loadMyCourses = async () => {
         // ignore
       }
     }
+    
+    if (location.state?.section === 'mock-tests') {
+      setActiveSection('mock-tests');
+      if (location.state?.testId) {
+        setTimeout(() => {
+          const testElement = document.getElementById(`mock-test-${location.state.testId}`);
+          if (testElement) {
+            testElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            testElement.style.boxShadow = '0 0 10px 3px rgba(37, 99, 235, 0.5)';
+            setTimeout(() => {
+              testElement.style.boxShadow = '';
+            }, 2000);
+          }
+        }, 500);
+      }
+      try {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      } catch (e) {
+        // ignore
+      }
+    }
   }, [location.state]);
 
   // Removed periodic refresh - was causing infinite loop
