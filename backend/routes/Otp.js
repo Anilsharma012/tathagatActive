@@ -208,22 +208,20 @@ router.post("/verify", async (req, res) => {
         { expiresIn: "1h" }
       );
 
-    // ✅ Determine Redirect Path
-    let redirectTo = "/study-zone";  
+    // ✅ Determine Redirect Path - Check if returning user
+    let redirectTo = "/student/onboarding";  
     const adminEmails = ["takoria2204@gmail.com", "superadmin@lms.com"];
+    
     if (adminEmails.includes(user.email)) {
-        redirectTo = "/admin-dashboard"; 
+      redirectTo = "/admin-dashboard"; 
     } else if (user.role === "subadmin") {
-        redirectTo = "/subadmin-dashboard"; 
+      redirectTo = "/subadmin-dashboard"; 
     } else if (user.isOnboardingComplete) {
-        // ✅ If user already completed onboarding, go directly to dashboard
-        redirectTo = "/study-zone";
-    } else if (!user.name || !user.phoneNumber || !user.city || !user.gender || !user.dob) {
-        redirectTo = "/user-details"; 
-    } else if (user.selectedCategory && !user.selectedExam) {
-        redirectTo = `/exam-selection/${user.selectedCategory}`;
-    } else if (!user.selectedCategory) {
-        redirectTo = "/exam-category";
+      // ✅ Returning user - direct to dashboard (no need to fill details again)
+      redirectTo = "/student/dashboard";
+    } else {
+      // ✅ New user - go to onboarding flow
+      redirectTo = "/student/onboarding";
     }
 
     res.status(200).json({
@@ -484,23 +482,21 @@ router.post("/mobileVerify-otp", async (req, res) => {
         { expiresIn: "1h" }
       );
   
-      // ✅ 5️⃣ Smart Redirect Logic
-      let redirectTo = "/study-zone";  
-    const adminPhone = ["7015242845", "7015242846"];
-    if (adminPhone.includes(user.phoneNumber)) {
+      // ✅ 5️⃣ Smart Redirect Logic - Check if returning user
+      let redirectTo = "/student/onboarding";  
+      const adminPhone = ["7015242845", "7015242846"];
+      
+      if (adminPhone.includes(user.phoneNumber)) {
         redirectTo = "/admin-dashboard"; 
-    } else if (user.role === "subadmin") {
+      } else if (user.role === "subadmin") {
         redirectTo = "/subadmin-dashboard"; 
-    } else if (user.isOnboardingComplete) {
-        // ✅ If user already completed onboarding, go directly to dashboard
-        redirectTo = "/study-zone";
-    } else if (!user.name || !user.email || !user.city || !user.gender || !user.dob) {
-        redirectTo = "/user-details"; 
-    } else if (user.selectedCategory && !user.selectedExam) {
-        redirectTo = `/exam-selection/${user.selectedCategory}`;
-    } else if (!user.selectedCategory) {
-        redirectTo = "/exam-category";
-    }
+      } else if (user.isOnboardingComplete) {
+        // ✅ Returning user - direct to dashboard (no need to fill details again)
+        redirectTo = "/student/dashboard";
+      } else {
+        // ✅ New user - go to onboarding flow (same UI as email verification)
+        redirectTo = "/student/onboarding";
+      }
   
       res.status(200).json({
         message: "✅ Mobile number verified successfully!",
@@ -537,7 +533,7 @@ router.post("/mobileVerify-otp", async (req, res) => {
     }
 
     // ✅ Return User + Optional redirect suggestion
-    let redirectTo = "/user-details";
+    let redirectTo = "/student/onboarding";
 
     // ✅ Auto-fix: Set isOnboardingComplete for existing users who have all fields filled
     if (!user.isOnboardingComplete && user.name && user.city && user.gender &&
@@ -548,11 +544,11 @@ router.post("/mobileVerify-otp", async (req, res) => {
     }
 
     if (user.isOnboardingComplete) {
-      redirectTo = "/study-zone";
-    } else if (user.selectedCategory && !user.selectedExam) {
-      redirectTo = `/exam-selection/${user.selectedCategory}`;
-    } else if (!user.selectedCategory && user.name && user.city && user.gender && user.dob) {
-      redirectTo = "/exam-category";
+      // ✅ Returning user - direct to dashboard
+      redirectTo = "/student/dashboard";
+    } else {
+      // ✅ New user - go to onboarding flow
+      redirectTo = "/student/onboarding";
     }
 
     return res.status(200).json({ user, redirectTo });

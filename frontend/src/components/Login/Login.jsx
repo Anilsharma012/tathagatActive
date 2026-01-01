@@ -135,7 +135,8 @@ const Login = ({ onClose, setUser }) => {
       localStorage.removeItem('redirectAfterLogin'); // Clean up
       navigate(redirectAfterLogin);
     } else {
-      navigate(serverRedirectTo || "/user-details");
+      // ✅ Use server redirect path - defaults to /student/onboarding for new users
+      navigate(serverRedirectTo || "/student/onboarding");
     }
   };
 
