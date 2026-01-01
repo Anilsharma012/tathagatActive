@@ -3,7 +3,7 @@ const router = express.Router();
 const { authMiddleware } = require('../middleware/authMiddleware');
 const Payment = require('../models/Payment');
 const User = require('../models/UserSchema');
-const Course = require('../models/Course');
+const Course = require('../models/course/Course');
 const BillingSettings = require('../models/BillingSettings');
 const { prepareInvoiceData, generateInvoicePdf } = require('../services/invoicePdfService');
 

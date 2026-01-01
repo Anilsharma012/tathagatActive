@@ -54,8 +54,16 @@ The application runs in development mode without a database, using mock data fal
 - Admin panel for content management
 
 ## Recent Changes
+- 2026-01-01: Free Mock Tests Category & Type Assignment
+  - Added downloadType (PREVIOUS_YEAR/TOPIC_WISE) and downloadCategoryId fields to MockTest model
+  - Admin Downloads page now shows Section and Category dropdowns for each free mock test
+  - Admin can assign each free mock test to Previous Year or Topic Wise section
+  - Admin can assign a category within the selected section for proper grouping
+  - Frontend MockTest page filters and displays tests in correct sections based on assigned type
+  - Fixed validation errors by using findByIdAndUpdate to avoid schema conflicts
+
 - 2026-01-01: Backend Route Fixes
-  - Fixed invoiceRoutes.js: Changed import from User to UserSchema
+  - Fixed invoiceRoutes.js: Changed import from Course to course/Course path
   - Fixed notificationRoutes.js: Changed userAuth to authMiddleware
 
 - 2026-01-01: Free Mock Tests in Downloads Section
