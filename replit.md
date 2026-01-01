@@ -54,6 +54,11 @@ The application runs in development mode without a database, using mock data fal
 - Admin panel for content management
 
 ## Recent Changes
+- 2026-01-01: Consistent Admin Sidebar Navigation
+  - Added AdminLayout wrapper to all 20+ admin pages for consistent sidebar
+  - Pages updated: PracticeTestManagement, MockTestManagement, StudentPerformance, ImageGalleryManagement, Announcements, BlogManagement, BulkUpload, DemoVideoManagement, DiscussionManagement, DownloadsManagement, HierarchyManagement, LiveClasses, PdfManagement, ScoreCardManagement, StudyMaterials, SuccessStoryManagement, TopperFeedbackManagement, TopPerformerManagement, ZoomManagement, CoursePurchaseContentManagement
+  - All admin pages now have unified sidebar, topbar, and theming
+
 - 2026-01-01: Receipt Billing Details Fix
   - Added logo and website fields to Receipt model's companyDetails schema
   - Updated receipt creation to include companyLogo and website from BillingSettings
