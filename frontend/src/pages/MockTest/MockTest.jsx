@@ -49,12 +49,29 @@ const MockTest = () => {
   const fetchTests = async () => {
     try {
       setLoadingTests(true);
-      const response = await axios.get(`${API_BASE}/public/tests`);
-      if (response.data.success) {
-        const tests = response.data.tests;
-        setPreviousYearTests(tests.filter((t) => t.type === "PREVIOUS_YEAR"));
+      const [testsRes, freeMockRes] = await Promise.all([
+        axios.get(`${API_BASE}/public/tests`),
+        axios.get(`${API_BASE}/public/free-mock-tests`)
+      ]);
+      
+      let allPreviousYearTests = [];
+      
+      if (testsRes.data.success) {
+        const tests = testsRes.data.tests;
+        allPreviousYearTests = tests.filter((t) => t.type === "PREVIOUS_YEAR");
         setTopicWiseTests(tests.filter((t) => t.type === "TOPIC_WISE"));
       }
+      
+      if (freeMockRes.data.success) {
+        const freeMockTests = freeMockRes.data.tests.map(t => ({
+          ...t,
+          type: "PREVIOUS_YEAR",
+          categoryId: t.categoryId ? { _id: t.categoryId, name: t.category } : null
+        }));
+        allPreviousYearTests = [...allPreviousYearTests, ...freeMockTests];
+      }
+      
+      setPreviousYearTests(allPreviousYearTests);
     } catch (error) {
       console.error("Error fetching tests:", error);
     } finally {
@@ -90,6 +107,8 @@ const MockTest = () => {
 
     if (test.pdfUrl) {
       window.open(test.pdfUrl, "_blank");
+    } else if (test.isMockTest) {
+      navigate("/study-zone", { state: { section: "mock-tests", testId: test._id } });
     } else {
       navigate("/instruction", { state: { testId: test._id } });
     }
