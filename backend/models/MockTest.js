@@ -44,6 +44,12 @@ const mockTestSchema = new Schema(
     isFree: { type: Boolean, default: false },
     price: { type: Number, default: null }, // Price in INR if paid test
     difficulty: { type: String, default: 'Medium' },
+    
+    downloadStatus: { 
+      type: String, 
+      enum: ['PUBLISHED', 'COMING_SOON'], 
+      default: 'COMING_SOON' 
+    },
 
     isActive: { type: Boolean, default: true },
     isPublished: { type: Boolean, default: false },

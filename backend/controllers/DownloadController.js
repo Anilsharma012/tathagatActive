@@ -1,5 +1,6 @@
 const DownloadCategory = require('../models/DownloadCategory');
 const DownloadTest = require('../models/DownloadTest');
+const MockTest = require('../models/MockTest');
 const path = require('path');
 const fs = require('fs');
 
@@ -421,6 +422,60 @@ exports.getPublicTests = async (req, res) => {
     
     res.json({ success: true, tests });
   } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+exports.getFreeMockTests = async (req, res) => {
+  try {
+    const tests = await MockTest.find({
+      isFree: true,
+      $or: [
+        { courseId: { $exists: false } },
+        { courseId: null }
+      ]
+    })
+    .populate('previousYearExamCategoryId', 'name')
+    .sort({ createdAt: -1 });
+    
+    const formattedTests = tests.map(test => ({
+      _id: test._id,
+      title: test.title,
+      category: test.previousYearExamCategoryId?.name || 'General',
+      categoryId: test.previousYearExamCategoryId?._id || null,
+      questionCount: test.totalQuestions || 0,
+      totalMarks: test.totalMarks || 0,
+      durationMinutes: test.duration || 0,
+      language: 'English',
+      status: test.downloadStatus || 'COMING_SOON',
+      isFree: true,
+      isMockTest: true,
+      isPublished: test.isPublished
+    }));
+    
+    res.json({ success: true, tests: formattedTests });
+  } catch (error) {
+    console.error('Error fetching free mock tests:', error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+exports.toggleFreeMockTestStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    
+    const test = await MockTest.findById(id);
+    if (!test) {
+      return res.status(404).json({ success: false, message: 'Test not found' });
+    }
+    
+    test.downloadStatus = status;
+    await test.save();
+    
+    res.json({ success: true, message: `Test ${status === 'PUBLISHED' ? 'published' : 'set to coming soon'}`, test });
+  } catch (error) {
+    console.error('Error toggling mock test status:', error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
