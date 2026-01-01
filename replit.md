@@ -54,6 +54,13 @@ The application runs in development mode without a database, using mock data fal
 - Admin panel for content management
 
 ## Recent Changes
+- 2026-01-01: Course display fixes
+  - Removed static/hardcoded courses from Mycourse component - now shows only admin-created courses
+  - Fixed course description parsing to handle HTML `<li>` tags and display as proper bullet points
+  - Fixed image path handling for course thumbnails (supports full URLs, /uploads paths, and filenames)
+  - Fixed HTML entity decoding (`&amp;` → `&`, etc.)
+  - Added "No courses available" message when no admin courses exist
+
 - 2026-01-01: Login redirect fix
   - Fixed issue where existing users were shown "Complete Profile" page on re-login
   - Added `isOnboardingComplete` flag check in OTP verification endpoints

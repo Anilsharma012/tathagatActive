@@ -5,7 +5,6 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import axios from "../../utils/axiosConfig";
 import CoursePreviewModal from "../CoursePreviewModal/CoursePreviewModal";
-import Staticourse from "../../components/StaticCourse/Staticourse"
 
 const Mycourse = () => {
   const [courses, setCourses] = useState([]);
@@ -87,51 +86,96 @@ const Mycourse = () => {
         <button onClick={() => navigate("/ourBlog")}><i className="fa fa-filter"></i> Online/Offline</button>
         <button onClick={() => navigate("/compare")}><i className="fa fa-balance-scale"></i> Course Comparison</button>
       </div>
- <Staticourse/>
       {loading ? (
         <p>Loading courses...</p>
       ) : error ? (
         <p style={{ color: 'red' }}>{error}</p>
+      ) : courses.length === 0 ? (
+        <div className="tsp-no-courses" style={{ textAlign: 'center', padding: '40px', color: '#666' }}>
+          <p>No courses available yet. Please check back later!</p>
+        </div>
       ) : (
         <div className="tsp-programs-grid">
-          {visibleCourses.map((item) => (
-            <div className="tsp-program-card" key={item._id}>
-              <div className="tsp-program-image">
-                <LazyLoadImage
-                  effect="blur"
-                  src={`/uploads/${item.thumbnail}`}
-                  alt={item.name}
-                />
-                <div className="tsp-badge">{item.name}</div>
-              </div>
+          {visibleCourses.map((item) => {
+            const getImageUrl = (thumbnail) => {
+              if (!thumbnail) return '/images/default-course.jpg';
+              if (thumbnail.startsWith('http')) return thumbnail;
+              if (thumbnail.startsWith('/uploads')) return thumbnail;
+              return `/uploads/${thumbnail}`;
+            };
 
-              <div className="tsp-program-content">
-                <h3>{item.name}</h3>
-                <ul className="desc-list">
-                  {item.description
-                    ?.replace(/<[^>]+>/g, '')
-                    .split('\n')
-                    .filter(line => line.trim() !== "")
-                    .map((feat, idx) => (
-                      <li key={idx}>✔ {feat}</li>
+            const parseDescription = (desc) => {
+              if (!desc) return [];
+              
+              let lines = [];
+              if (desc.includes('<li>')) {
+                const liMatches = desc.match(/<li[^>]*>(.*?)<\/li>/gi) || [];
+                lines = liMatches.map(li => 
+                  li.replace(/<[^>]+>/g, '')
+                    .replace(/&amp;/g, '&')
+                    .replace(/&lt;/g, '<')
+                    .replace(/&gt;/g, '>')
+                    .replace(/&nbsp;/g, ' ')
+                    .replace(/&quot;/g, '"')
+                    .trim()
+                ).filter(l => l);
+              } else {
+                let text = desc
+                  .replace(/<[^>]+>/g, '')
+                  .replace(/&amp;/g, '&')
+                  .replace(/&lt;/g, '<')
+                  .replace(/&gt;/g, '>')
+                  .replace(/&nbsp;/g, ' ')
+                  .replace(/&quot;/g, '"');
+                
+                if (text.includes('✔') || text.includes('✓')) {
+                  lines = text.split(/[✔✓]/).filter(l => l.trim());
+                } else if (text.includes('\n')) {
+                  lines = text.split('\n').filter(l => l.trim());
+                } else {
+                  const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+                  lines = sentences.slice(0, 6).map(s => s.trim()).filter(l => l);
+                }
+              }
+              return lines.slice(0, 6);
+            };
+
+            return (
+              <div className="tsp-program-card" key={item._id}>
+                <div className="tsp-program-image">
+                  <LazyLoadImage
+                    effect="blur"
+                    src={getImageUrl(item.thumbnail)}
+                    alt={item.name}
+                    onError={(e) => { e.target.src = '/images/default-course.jpg'; }}
+                  />
+                  <div className="tsp-badge">{item.name}</div>
+                </div>
+
+                <div className="tsp-program-content">
+                  <h3>{item.name}</h3>
+                  <ul className="desc-list">
+                    {parseDescription(item.description).map((feat, idx) => (
+                      <li key={idx}>✔ {feat.trim()}</li>
                     ))}
-                </ul>
+                  </ul>
 
-                <div className="tsp-program-price-row">
-                  <div>
-                    <h4>₹{item.price}</h4>
-                    {item.oldPrice && <del>₹{item.oldPrice}</del>}
-                  </div>
-                  <div className="tsp-program-buttons">
-                    <button onClick={() => setPreviewCourse(item)} className="preview-btn">
-                      👁️ Preview
-                    </button>
-                    <button onClick={() => navigate(`/course-purchase/${item._id}`, { state: item })}>Enroll Now</button>
+                  <div className="tsp-program-price-row">
+                    <div>
+                      <h4>₹{item.price}</h4>
+                      {item.oldPrice && <del>₹{item.oldPrice}</del>}
+                    </div>
+                    <div className="tsp-program-buttons">
+                      <button onClick={() => setPreviewCourse(item)} className="preview-btn">
+                        👁️ Preview
+                      </button>
+                      <button onClick={() => navigate(`/course-purchase/${item._id}`, { state: item })}>Enroll Now</button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 
