@@ -54,8 +54,15 @@ The application runs in development mode without a database, using mock data fal
 - Admin panel for content management
 
 ## Recent Changes
+- 2026-01-01: Login redirect fix
+  - Fixed issue where existing users were shown "Complete Profile" page on re-login
+  - Added `isOnboardingComplete` flag check in OTP verification endpoints
+  - Now users who completed onboarding are redirected directly to dashboard (`/study-zone`)
+  - Auto-fix for existing users: sets `isOnboardingComplete=true` when all profile fields exist
+  
 - 2025-12-31: Initial Replit setup
   - Renamed directories to remove spaces
   - Configured workflows for frontend (port 5000) and backend (port 3001)
   - Updated axios config to use local backend proxy
   - Added HOST=0.0.0.0 for Replit compatibility
+  - Connected to MongoDB Atlas with production credentials

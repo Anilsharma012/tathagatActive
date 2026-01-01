@@ -93,6 +93,7 @@ router.post("/save-exam", authMiddleware, async (req, res) => {
 
     user.selectedCategory = category;
     user.selectedExam = exam;
+    user.isOnboardingComplete = true; // ✅ Mark onboarding as complete
     await user.save();
 
     res.status(200).json({
@@ -214,7 +215,10 @@ router.post("/verify", async (req, res) => {
         redirectTo = "/admin-dashboard"; 
     } else if (user.role === "subadmin") {
         redirectTo = "/subadmin-dashboard"; 
-    } else if (!user.name || !user.phoneNumber || !user.city || !user.gender || !user.dob || !user.selectedCategory || !user.selectedExam) {
+    } else if (user.isOnboardingComplete) {
+        // ✅ If user already completed onboarding, go directly to dashboard
+        redirectTo = "/study-zone";
+    } else if (!user.name || !user.phoneNumber || !user.city || !user.gender || !user.dob) {
         redirectTo = "/user-details"; 
     } else if (user.selectedCategory && !user.selectedExam) {
         redirectTo = `/exam-selection/${user.selectedCategory}`;
@@ -487,7 +491,10 @@ router.post("/mobileVerify-otp", async (req, res) => {
         redirectTo = "/admin-dashboard"; 
     } else if (user.role === "subadmin") {
         redirectTo = "/subadmin-dashboard"; 
-    } else if (!user.name || !user.email || !user.city || !user.gender || !user.dob || !user.selectedCategory || !user.selectedExam) {
+    } else if (user.isOnboardingComplete) {
+        // ✅ If user already completed onboarding, go directly to dashboard
+        redirectTo = "/study-zone";
+    } else if (!user.name || !user.email || !user.city || !user.gender || !user.dob) {
         redirectTo = "/user-details"; 
     } else if (user.selectedCategory && !user.selectedExam) {
         redirectTo = `/exam-selection/${user.selectedCategory}`;
@@ -532,14 +539,19 @@ router.post("/mobileVerify-otp", async (req, res) => {
     // ✅ Return User + Optional redirect suggestion
     let redirectTo = "/user-details";
 
-    if (
-      user.name && user.city && user.gender &&
-      user.dob && user.selectedCategory && user.selectedExam
-    ) {
+    // ✅ Auto-fix: Set isOnboardingComplete for existing users who have all fields filled
+    if (!user.isOnboardingComplete && user.name && user.city && user.gender &&
+        user.dob && user.selectedCategory && user.selectedExam) {
+      user.isOnboardingComplete = true;
+      await user.save({ validateBeforeSave: false });
+      console.log("✅ Auto-fixed isOnboardingComplete for user:", user._id);
+    }
+
+    if (user.isOnboardingComplete) {
       redirectTo = "/study-zone";
     } else if (user.selectedCategory && !user.selectedExam) {
       redirectTo = `/exam-selection/${user.selectedCategory}`;
-    } else if (!user.selectedCategory) {
+    } else if (!user.selectedCategory && user.name && user.city && user.gender && user.dob) {
       redirectTo = "/exam-category";
     }
 
