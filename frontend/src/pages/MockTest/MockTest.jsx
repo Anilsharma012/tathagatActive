@@ -55,23 +55,32 @@ const MockTest = () => {
       ]);
       
       let allPreviousYearTests = [];
+      let allTopicWiseTests = [];
       
       if (testsRes.data.success) {
         const tests = testsRes.data.tests;
         allPreviousYearTests = tests.filter((t) => t.type === "PREVIOUS_YEAR");
-        setTopicWiseTests(tests.filter((t) => t.type === "TOPIC_WISE"));
+        allTopicWiseTests = tests.filter((t) => t.type === "TOPIC_WISE");
       }
       
       if (freeMockRes.data.success) {
-        const freeMockTests = freeMockRes.data.tests.map(t => ({
-          ...t,
-          type: "PREVIOUS_YEAR",
-          categoryId: t.categoryId || null
-        }));
-        allPreviousYearTests = [...allPreviousYearTests, ...freeMockTests];
+        freeMockRes.data.tests.forEach(test => {
+          const formattedTest = {
+            ...test,
+            type: test.downloadType || "PREVIOUS_YEAR",
+            categoryId: test.categoryId || null
+          };
+          
+          if (test.downloadType === "TOPIC_WISE") {
+            allTopicWiseTests.push(formattedTest);
+          } else {
+            allPreviousYearTests.push(formattedTest);
+          }
+        });
       }
       
       setPreviousYearTests(allPreviousYearTests);
+      setTopicWiseTests(allTopicWiseTests);
     } catch (error) {
       console.error("Error fetching tests:", error);
     } finally {

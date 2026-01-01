@@ -448,6 +448,8 @@ exports.getFreeMockTests = async (req, res) => {
       durationMinutes: test.duration || 0,
       language: 'English',
       status: test.downloadStatus || 'COMING_SOON',
+      downloadType: test.downloadType || null,
+      downloadCategoryId: test.downloadCategoryId || null,
       isFree: true,
       isMockTest: true,
       isPublished: test.isPublished
@@ -480,6 +482,93 @@ exports.toggleFreeMockTestStatus = async (req, res) => {
     res.json({ success: true, message: `Test ${status === 'PUBLISHED' ? 'published' : 'set to coming soon'}`, test });
   } catch (error) {
     console.error('Error toggling mock test status:', error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+exports.updateFreeMockTestDownloadSettings = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { downloadType, downloadCategoryId, status } = req.body;
+    
+    const test = await MockTest.findById(id);
+    if (!test) {
+      return res.status(404).json({ success: false, message: 'Test not found' });
+    }
+    
+    if (!test.isFree || test.courseId) {
+      return res.status(400).json({ success: false, message: 'Only free mock tests without a course can be updated' });
+    }
+    
+    if (downloadType) {
+      test.downloadType = downloadType;
+    }
+    
+    if (downloadCategoryId !== undefined) {
+      test.downloadCategoryId = downloadCategoryId || null;
+    }
+    
+    if (status) {
+      test.downloadStatus = status;
+    }
+    
+    await test.save();
+    
+    res.json({ 
+      success: true, 
+      message: 'Test download settings updated successfully', 
+      test: {
+        _id: test._id,
+        downloadType: test.downloadType,
+        downloadCategoryId: test.downloadCategoryId,
+        downloadStatus: test.downloadStatus
+      }
+    });
+  } catch (error) {
+    console.error('Error updating mock test download settings:', error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+exports.getPublicFreeMockTests = async (req, res) => {
+  try {
+    const { type } = req.query;
+    
+    const query = {
+      isFree: true,
+      downloadStatus: 'PUBLISHED',
+      $or: [
+        { courseId: { $exists: false } },
+        { courseId: null }
+      ]
+    };
+    
+    if (type) {
+      query.downloadType = type;
+    }
+    
+    const tests = await MockTest.find(query)
+      .populate('downloadCategoryId', 'name')
+      .sort({ createdAt: -1 });
+    
+    const formattedTests = tests.map(test => ({
+      _id: test._id,
+      title: test.title,
+      categoryId: test.downloadCategoryId?._id || null,
+      category: test.downloadCategoryId?.name || 'General',
+      questionCount: test.totalQuestions || 0,
+      totalMarks: test.totalMarks || 0,
+      durationMinutes: test.duration || 0,
+      language: 'English',
+      status: test.downloadStatus,
+      downloadType: test.downloadType,
+      isFree: true,
+      isMockTest: true
+    }));
+    
+    res.json({ success: true, tests: formattedTests });
+  } catch (error) {
+    console.error('Error fetching public free mock tests:', error);
     res.status(500).json({ success: false, message: error.message });
   }
 };

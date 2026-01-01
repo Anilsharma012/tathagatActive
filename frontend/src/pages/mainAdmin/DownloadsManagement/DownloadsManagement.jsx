@@ -70,6 +70,39 @@ const DownloadsManagement = () => {
     }
   };
 
+  const handleUpdateFreeMockTestSettings = async (testId, settings) => {
+    try {
+      const response = await axios.patch(`${API_BASE}/admin/free-mock-tests/${testId}/settings`, settings, getAuthHeaders());
+      if (response.data.success) {
+        setSuccess('Test settings updated successfully');
+        fetchFreeMockTests();
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to update settings');
+    }
+  };
+
+  const [allCategories, setAllCategories] = useState({ PREVIOUS_YEAR: [], TOPIC_WISE: [] });
+
+  const fetchAllCategories = async () => {
+    try {
+      const [prevYearRes, topicWiseRes] = await Promise.all([
+        axios.get(`${API_BASE}/admin/categories?type=PREVIOUS_YEAR`, getAuthHeaders()),
+        axios.get(`${API_BASE}/admin/categories?type=TOPIC_WISE`, getAuthHeaders())
+      ]);
+      setAllCategories({
+        PREVIOUS_YEAR: prevYearRes.data.success ? prevYearRes.data.categories : [],
+        TOPIC_WISE: topicWiseRes.data.success ? topicWiseRes.data.categories : []
+      });
+    } catch (err) {
+      console.error('Error fetching all categories:', err);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchAllCategories();
+  }, []);
+
   const getAuthHeaders = () => {
     const token = localStorage.getItem('adminToken');
     return { headers: { Authorization: `Bearer ${token}` } };
@@ -441,7 +474,7 @@ const DownloadsManagement = () => {
         <div className="section-header">
           <h2>Free Mock Tests (From Mock Test Management)</h2>
           <p style={{fontSize: '14px', color: '#666', marginLeft: '10px'}}>
-            These are tests created without a course in Mock Test Management
+            These are tests created without a course in Mock Test Management. Assign them to a section and category to display in Downloads.
           </p>
         </div>
 
@@ -450,6 +483,7 @@ const DownloadsManagement = () => {
             <thead>
               <tr>
                 <th>Title</th>
+                <th>Section</th>
                 <th>Category</th>
                 <th>Questions</th>
                 <th>Duration</th>
@@ -464,7 +498,30 @@ const DownloadsManagement = () => {
                     <strong>{test.title}</strong>
                     <span className="free-badge">Free Mock</span>
                   </td>
-                  <td>{test.category || 'General'}</td>
+                  <td>
+                    <select
+                      value={test.downloadType || ''}
+                      onChange={(e) => handleUpdateFreeMockTestSettings(test._id, { downloadType: e.target.value || null })}
+                      style={{ padding: '6px 10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '13px' }}
+                    >
+                      <option value="">Not Assigned</option>
+                      <option value="PREVIOUS_YEAR">Previous Year</option>
+                      <option value="TOPIC_WISE">Topic Wise</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select
+                      value={test.downloadCategoryId || ''}
+                      onChange={(e) => handleUpdateFreeMockTestSettings(test._id, { downloadCategoryId: e.target.value || null })}
+                      style={{ padding: '6px 10px', borderRadius: '4px', border: '1px solid #ddd', fontSize: '13px', minWidth: '120px' }}
+                      disabled={!test.downloadType}
+                    >
+                      <option value="">Select Category</option>
+                      {test.downloadType && allCategories[test.downloadType]?.map(cat => (
+                        <option key={cat._id} value={cat._id}>{cat.name}</option>
+                      ))}
+                    </select>
+                  </td>
                   <td>{test.questionCount}</td>
                   <td>{test.durationMinutes} min</td>
                   <td>
@@ -482,7 +539,7 @@ const DownloadsManagement = () => {
               ))}
               {freeMockTests.length === 0 && (
                 <tr>
-                  <td colSpan="6" className="empty-row">No free mock tests. Create a mock test without selecting a course in Mock Test Management.</td>
+                  <td colSpan="7" className="empty-row">No free mock tests. Create a mock test without selecting a course in Mock Test Management.</td>
                 </tr>
               )}
             </tbody>

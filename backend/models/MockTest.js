@@ -50,6 +50,18 @@ const mockTestSchema = new Schema(
       enum: ['PUBLISHED', 'COMING_SOON'], 
       default: 'COMING_SOON' 
     },
+    
+    downloadType: {
+      type: String,
+      enum: ['PREVIOUS_YEAR', 'TOPIC_WISE'],
+      default: null
+    },
+    
+    downloadCategoryId: { 
+      type: Schema.Types.ObjectId, 
+      ref: 'DownloadCategory',
+      default: null
+    },
 
     isActive: { type: Boolean, default: true },
     isPublished: { type: Boolean, default: false },

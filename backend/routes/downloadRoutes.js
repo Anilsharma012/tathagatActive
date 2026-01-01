@@ -25,7 +25,9 @@ const {
   getPublicCategories,
   getPublicTests,
   getFreeMockTests,
-  toggleFreeMockTestStatus
+  toggleFreeMockTestStatus,
+  updateFreeMockTestDownloadSettings,
+  getPublicFreeMockTests
 } = require('../controllers/DownloadController');
 
 const uploadsDir = path.join(__dirname, '..', 'uploads', 'downloads');
@@ -77,40 +79,8 @@ router.post('/admin/tests/:id/upload-pdf', authMiddleware, upload.single('pdf'),
 
 router.get('/admin/free-mock-tests', authMiddleware, getFreeMockTests);
 router.patch('/admin/free-mock-tests/:id/status', authMiddleware, toggleFreeMockTestStatus);
+router.patch('/admin/free-mock-tests/:id/settings', authMiddleware, updateFreeMockTestDownloadSettings);
 
-router.get('/public/free-mock-tests', async (req, res) => {
-  try {
-    const MockTest = require('../models/MockTest');
-    const tests = await MockTest.find({
-      isFree: true,
-      downloadStatus: 'PUBLISHED',
-      $or: [
-        { courseId: { $exists: false } },
-        { courseId: null }
-      ]
-    })
-    .populate('previousYearExamCategoryId', 'name')
-    .sort({ createdAt: -1 });
-    
-    const formattedTests = tests.map(test => ({
-      _id: test._id,
-      title: test.title,
-      category: test.previousYearExamCategoryId?.name || 'General',
-      categoryId: test.previousYearExamCategoryId?._id || null,
-      questionCount: test.totalQuestions || 0,
-      totalMarks: test.totalMarks || 0,
-      durationMinutes: test.duration || 0,
-      language: 'English',
-      status: 'PUBLISHED',
-      isFree: true,
-      isMockTest: true
-    }));
-    
-    res.json({ success: true, tests: formattedTests });
-  } catch (error) {
-    console.error('Error fetching public free mock tests:', error);
-    res.status(500).json({ success: false, message: error.message });
-  }
-});
+router.get('/public/free-mock-tests', getPublicFreeMockTests);
 
 module.exports = router;
