@@ -108,7 +108,8 @@ text-align: right;
 
 
 
-.tsp-program-image .LazyLoadImage {
+.tsp-program-image .LazyLoadImage,
+.tsp-program-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -309,7 +310,7 @@ text-align: right;
   gap: 8px;
 }
 .tsp-program-price-row > div:first-child {
-  margin-bottom: -60px; /* 💥 MRP ko thoda aur niche kheench lega */
+  margin-bottom: 8px;
 }
 
 .tsp-program-buttons {
