@@ -9,6 +9,7 @@ const DownloadsManagement = () => {
   const [activeTab, setActiveTab] = useState('PREVIOUS_YEAR');
   const [categories, setCategories] = useState([]);
   const [tests, setTests] = useState([]);
+  const [freeMockTests, setFreeMockTests] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -42,7 +43,32 @@ const DownloadsManagement = () => {
   useEffect(() => {
     fetchCategories();
     fetchTests();
+    fetchFreeMockTests();
   }, [activeTab]);
+
+  const fetchFreeMockTests = async () => {
+    try {
+      const response = await axios.get(`${API_BASE}/admin/free-mock-tests`, getAuthHeaders());
+      if (response.data.success) {
+        setFreeMockTests(response.data.tests);
+      }
+    } catch (err) {
+      console.error('Error fetching free mock tests:', err);
+    }
+  };
+
+  const handleToggleFreeMockTestStatus = async (testId, currentStatus) => {
+    const newStatus = currentStatus === 'PUBLISHED' ? 'COMING_SOON' : 'PUBLISHED';
+    try {
+      const response = await axios.patch(`${API_BASE}/admin/free-mock-tests/${testId}/status`, { status: newStatus }, getAuthHeaders());
+      if (response.data.success) {
+        setSuccess(`Test ${newStatus === 'PUBLISHED' ? 'published' : 'set to coming soon'}`);
+        fetchFreeMockTests();
+      }
+    } catch (err) {
+      setError(err.response?.data?.message || 'Failed to update status');
+    }
+  };
 
   const getAuthHeaders = () => {
     const token = localStorage.getItem('adminToken');
@@ -409,6 +435,59 @@ const DownloadsManagement = () => {
             </table>
           </div>
         )}
+      </div>
+
+      <div className="section-container">
+        <div className="section-header">
+          <h2>Free Mock Tests (From Mock Test Management)</h2>
+          <p style={{fontSize: '14px', color: '#666', marginLeft: '10px'}}>
+            These are tests created without a course in Mock Test Management
+          </p>
+        </div>
+
+        <div className="tests-table-container">
+          <table className="tests-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Questions</th>
+                <th>Duration</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {freeMockTests.map(test => (
+                <tr key={test._id}>
+                  <td>
+                    <strong>{test.title}</strong>
+                    <span className="free-badge">Free Mock</span>
+                  </td>
+                  <td>{test.category || 'General'}</td>
+                  <td>{test.questionCount}</td>
+                  <td>{test.durationMinutes} min</td>
+                  <td>
+                    <button 
+                      className={`status-btn ${test.status === 'PUBLISHED' ? 'published' : 'coming-soon'}`}
+                      onClick={() => handleToggleFreeMockTestStatus(test._id, test.status)}
+                    >
+                      {test.status === 'PUBLISHED' ? 'Published' : 'Coming Soon'}
+                    </button>
+                  </td>
+                  <td>
+                    <span style={{color: '#666', fontSize: '12px'}}>Edit in Mock Tests</span>
+                  </td>
+                </tr>
+              ))}
+              {freeMockTests.length === 0 && (
+                <tr>
+                  <td colSpan="6" className="empty-row">No free mock tests. Create a mock test without selecting a course in Mock Test Management.</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {showCategoryModal && (
