@@ -2738,44 +2738,6 @@ const loadMyCourses = async () => {
             </div>
           </div>
 
-          <div className="profile-form-card">
-            <div className="form-card-header">
-              <FiBell className="form-card-icon" />
-              <h3>Notification Settings</h3>
-            </div>
-            <div className="notification-settings-pro">
-              <div className="notification-item-pro">
-                <div className="notification-info">
-                  <h4>Email Notifications</h4>
-                  <p>Receive updates about courses and announcements</p>
-                </div>
-                <label className="switch-pro">
-                  <input type="checkbox" defaultChecked />
-                  <span className="slider-pro"></span>
-                </label>
-              </div>
-              <div className="notification-item-pro">
-                <div className="notification-info">
-                  <h4>SMS Reminders</h4>
-                  <p>Get reminders for live classes and tests</p>
-                </div>
-                <label className="switch-pro">
-                  <input type="checkbox" defaultChecked />
-                  <span className="slider-pro"></span>
-                </label>
-              </div>
-              <div className="notification-item-pro">
-                <div className="notification-info">
-                  <h4>Performance Reports</h4>
-                  <p>Weekly performance summary emails</p>
-                </div>
-                <label className="switch-pro">
-                  <input type="checkbox" defaultChecked />
-                  <span className="slider-pro"></span>
-                </label>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
