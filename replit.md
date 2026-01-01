@@ -54,6 +54,12 @@ The application runs in development mode without a database, using mock data fal
 - Admin panel for content management
 
 ## Recent Changes
+- 2026-01-01: Receipt Billing Details Fix
+  - Added logo and website fields to Receipt model's companyDetails schema
+  - Updated receipt creation to include companyLogo and website from BillingSettings
+  - Fixed downloadReceipt to always fetch fresh billing settings (logo, website) for HTML receipts
+  - Now user-side receipts display admin-configured company logo and website
+
 - 2026-01-01: Admin Gallery Redesign
   - Modernized gallery design with gradients, shadows, and improved colors
   - Added visible Edit and Delete buttons with text labels

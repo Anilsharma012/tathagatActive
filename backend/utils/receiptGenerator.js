@@ -17,8 +17,11 @@ const generateReceiptHTML = (receiptData) => {
     taxAmount,
     totalAmount,
     currency,
-    companyLogo
+    companyLogo: passedLogo
   } = receiptData;
+  
+  // Use passed logo or get from company object
+  const companyLogo = passedLogo || company?.logo || '';
 
   const formatCurrency = (amt) => {
     const numericAmt = Number(amt) || 0;
@@ -194,6 +197,7 @@ const generateReceiptHTML = (receiptData) => {
                 <div class="company-details">
                     ${company?.address || ''}<br>
                     Phone: ${company?.phone || ''} | Email: ${company?.email || ''}<br>
+                    ${company?.website ? `Website: ${company.website}<br>` : ''}
                     ${company?.gstin ? `GSTIN: ${company.gstin}` : ''}
                 </div>
             </div>

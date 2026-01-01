@@ -76,6 +76,10 @@ const receiptSchema = new mongoose.Schema(
         type: String,
         default: "Your Education Platform",
       },
+      logo: {
+        type: String,
+        default: "",
+      },
       address: {
         type: String,
         default: "Education Center, Learning City",
@@ -91,6 +95,10 @@ const receiptSchema = new mongoose.Schema(
       gstin: {
         type: String,
         default: "GST123456789",
+      },
+      website: {
+        type: String,
+        default: "",
       },
     },
     // Receipt metadata
@@ -145,6 +153,7 @@ receiptSchema.methods.getReceiptData = function() {
     customer: this.customerDetails,
     course: this.courseDetails,
     company: this.companyDetails,
+    companyLogo: this.companyDetails?.logo || '',
     amount: this.amount,
     taxAmount: this.taxAmount,
     totalAmount: this.totalAmount,

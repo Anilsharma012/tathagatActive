@@ -599,10 +599,12 @@ exports.unlockCourseForStudent = async (req, res) => {
 
     let companyDetails = {
       name: "Tathagat Education",
+      logo: "",
       address: "",
       phone: "",
       email: "",
       gstin: "",
+      website: "",
     };
 
     if (billingSettings) {
@@ -616,10 +618,12 @@ exports.unlockCourseForStudent = async (req, res) => {
 
       companyDetails = {
         name: billingSettings.companyName || "Tathagat Education",
+        logo: billingSettings.companyLogo || "",
         address: addressParts.join(", "),
         phone: billingSettings.phone || "",
         email: billingSettings.email || "",
         gstin: billingSettings.gstNumber || "",
+        website: billingSettings.website || "",
       };
     }
 
@@ -1023,10 +1027,12 @@ exports.getReceipts = async (req, res) => {
 
           let companyDetails = {
             name: "Tathagat Education",
+            logo: "",
             address: "",
             phone: "",
             email: "",
             gstin: "",
+            website: "",
           };
 
           if (billingSettings) {
@@ -1040,10 +1046,12 @@ exports.getReceipts = async (req, res) => {
 
             companyDetails = {
               name: billingSettings.companyName || "Tathagat Education",
+              logo: billingSettings.companyLogo || "",
               address: addressParts.join(", "),
               phone: billingSettings.phone || "",
               email: billingSettings.email || "",
               gstin: billingSettings.gstNumber || "",
+              website: billingSettings.website || "",
             };
           }
 
@@ -1134,10 +1142,12 @@ exports.downloadReceipt = async (req, res) => {
 
         receiptData.company = {
           name: billingSettings.companyName || receiptData.company?.name || "Tathagat Education",
+          logo: billingSettings.companyLogo || receiptData.company?.logo || "",
           address: addressParts.join(", ") || receiptData.company?.address || "",
           phone: billingSettings.phone || receiptData.company?.phone || "",
           email: billingSettings.email || receiptData.company?.email || "",
           gstin: billingSettings.gstNumber || receiptData.company?.gstin || "",
+          website: billingSettings.website || receiptData.company?.website || "",
         };
 
         receiptData.companyLogo = billingSettings.companyLogo || "";
