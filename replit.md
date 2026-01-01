@@ -54,6 +54,17 @@ The application runs in development mode without a database, using mock data fal
 - Admin panel for content management
 
 ## Recent Changes
+- 2026-01-01: Admin Gallery Redesign
+  - Modernized gallery design with gradients, shadows, and improved colors
+  - Added visible Edit and Delete buttons with text labels
+  - Changed button layout from grid to flex for better responsiveness
+  - Added hover effects and visual feedback on action buttons
+  - Improved modal styling and form inputs
+
+- 2026-01-01: User Profile Update Fix
+  - Added missing fields to allowed update list: gender, dob, selectedCategory, selectedExam, targetYear, isOnboardingComplete
+  - Now onboarding completion properly saves all user data
+
 - 2026-01-01: Course display fixes
   - Removed static/hardcoded courses from Mycourse component - now shows only admin-created courses
   - Fixed course description parsing to handle HTML `<li>` tags and display as proper bullet points
