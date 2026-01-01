@@ -97,6 +97,15 @@ const StudentOnboarding = () => {
         setError("Please enter your full name");
         return false;
       }
+      if (!formData.email.trim()) {
+        setError("Please enter your email address");
+        return false;
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        setError("Please enter a valid email address");
+        return false;
+      }
       if (!formData.gender) {
         setError("Please select your gender");
         return false;
@@ -243,12 +252,13 @@ const StudentOnboarding = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Email</label>
+                  <label>Email *</label>
                   <input
                     type="email"
-                    placeholder="Enter email (optional)"
+                    placeholder="Enter your email address"
                     value={formData.email}
                     onChange={(e) => handleChange("email", e.target.value)}
+                    required
                   />
                 </div>
               </div>

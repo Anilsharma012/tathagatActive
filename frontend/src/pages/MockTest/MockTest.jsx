@@ -117,7 +117,7 @@ const MockTest = () => {
     if (test.pdfUrl) {
       window.open(test.pdfUrl, "_blank");
     } else if (test.isMockTest) {
-      navigate("/study-zone", { state: { section: "mock-tests", testId: test._id } });
+      navigate(`/student/mock-test/${test._id}/instructions`);
     } else {
       navigate("/instruction", { state: { testId: test._id } });
     }
