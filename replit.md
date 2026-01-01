@@ -54,6 +54,12 @@ The application runs in development mode without a database, using mock data fal
 - Admin panel for content management
 
 ## Recent Changes
+- 2026-01-01: Mock Test Navigation & Email Requirement
+  - Fixed "Attempt Now" button on free mock tests to navigate directly to the test instructions page
+  - Users now go to /student/mock-test/:id/instructions instead of generic study-zone section
+  - Made email required during new user signup in onboarding step 1
+  - Added email validation (format check) before proceeding to next onboarding step
+
 - 2026-01-01: Free Mock Tests Category & Type Assignment
   - Added downloadType (PREVIOUS_YEAR/TOPIC_WISE) and downloadCategoryId fields to MockTest model
   - Admin Downloads page now shows Section and Category dropdowns for each free mock test
