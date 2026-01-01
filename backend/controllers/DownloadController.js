@@ -467,7 +467,7 @@ exports.toggleFreeMockTestStatus = async (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
     
-    const test = await MockTest.findById(id);
+    const test = await MockTest.findById(id).select('isFree courseId');
     if (!test) {
       return res.status(404).json({ success: false, message: 'Test not found' });
     }
@@ -476,10 +476,13 @@ exports.toggleFreeMockTestStatus = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Only free mock tests without a course can be toggled' });
     }
     
-    test.downloadStatus = status;
-    await test.save();
+    const updatedTest = await MockTest.findByIdAndUpdate(
+      id,
+      { downloadStatus: status },
+      { new: true, runValidators: false }
+    );
     
-    res.json({ success: true, message: `Test ${status === 'PUBLISHED' ? 'published' : 'set to coming soon'}`, test });
+    res.json({ success: true, message: `Test ${status === 'PUBLISHED' ? 'published' : 'set to coming soon'}`, test: updatedTest });
   } catch (error) {
     console.error('Error toggling mock test status:', error);
     res.status(500).json({ success: false, message: error.message });
@@ -491,7 +494,7 @@ exports.updateFreeMockTestDownloadSettings = async (req, res) => {
     const { id } = req.params;
     const { downloadType, downloadCategoryId, status } = req.body;
     
-    const test = await MockTest.findById(id);
+    const test = await MockTest.findById(id).select('isFree courseId');
     if (!test) {
       return res.status(404).json({ success: false, message: 'Test not found' });
     }
@@ -500,28 +503,31 @@ exports.updateFreeMockTestDownloadSettings = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Only free mock tests without a course can be updated' });
     }
     
-    if (downloadType) {
-      test.downloadType = downloadType;
+    const updateData = {};
+    if (downloadType !== undefined) {
+      updateData.downloadType = downloadType || null;
     }
-    
     if (downloadCategoryId !== undefined) {
-      test.downloadCategoryId = downloadCategoryId || null;
+      updateData.downloadCategoryId = downloadCategoryId || null;
     }
-    
     if (status) {
-      test.downloadStatus = status;
+      updateData.downloadStatus = status;
     }
     
-    await test.save();
+    const updatedTest = await MockTest.findByIdAndUpdate(
+      id,
+      updateData,
+      { new: true, runValidators: false }
+    );
     
     res.json({ 
       success: true, 
       message: 'Test download settings updated successfully', 
       test: {
-        _id: test._id,
-        downloadType: test.downloadType,
-        downloadCategoryId: test.downloadCategoryId,
-        downloadStatus: test.downloadStatus
+        _id: updatedTest._id,
+        downloadType: updatedTest.downloadType,
+        downloadCategoryId: updatedTest.downloadCategoryId,
+        downloadStatus: updatedTest.downloadStatus
       }
     });
   } catch (error) {
