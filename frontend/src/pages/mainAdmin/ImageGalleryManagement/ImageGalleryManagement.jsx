@@ -300,7 +300,7 @@ const ImageGalleryManagement = () => {
                     <small className="video-url">{item.youtubeUrl}</small>
                   )}
                 </div>
-                <div className="card-actions">
+                <div className="card-actions-row">
                   <button
                     className="action-btn reorder"
                     onClick={() => handleReorder(index, 'up')}
@@ -325,13 +325,6 @@ const ImageGalleryManagement = () => {
                     <FaStar />
                   </button>
                   <button
-                    className="action-btn edit"
-                    onClick={() => handleOpenModal(item)}
-                    title="Edit"
-                  >
-                    <FaEdit />
-                  </button>
-                  <button
                     className={`action-btn toggle ${item.isActive ? '' : 'inactive'}`}
                     onClick={() => handleToggleActive(item)}
                     title={item.isActive ? 'Deactivate' : 'Activate'}
@@ -339,11 +332,18 @@ const ImageGalleryManagement = () => {
                     {item.isActive ? 'ON' : 'OFF'}
                   </button>
                   <button
+                    className="action-btn edit"
+                    onClick={() => handleOpenModal(item)}
+                    title="Edit Item"
+                  >
+                    <FaEdit /> Edit
+                  </button>
+                  <button
                     className="action-btn delete"
                     onClick={() => handleDelete(item._id)}
-                    title="Delete"
+                    title="Delete Item"
                   >
-                    <FaTrash />
+                    <FaTrash /> Delete
                   </button>
                 </div>
               </div>
