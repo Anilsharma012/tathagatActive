@@ -281,11 +281,19 @@ exports.updateDetails = async (req, res) => {
       return res.status(401).json({ status: false, msg: "Unauthorized" });
     }
 
-    const allowed = ["name", "email", "phoneNumber", "city", "state", "profilePic"];
+    const allowed = [
+      "name", "email", "phoneNumber", "city", "state", "profilePic",
+      "gender", "dob", "selectedCategory", "selectedExam", "targetYear", "isOnboardingComplete"
+    ];
 
     const updates = {};
     for (const k of allowed) {
       if (req.body[k] !== undefined) updates[k] = req.body[k];
+    }
+    
+    // If all required fields are present, mark onboarding as complete
+    if (req.body.isOnboardingComplete === true) {
+      updates.isOnboardingComplete = true;
     }
 
     // Get current user to check login method
