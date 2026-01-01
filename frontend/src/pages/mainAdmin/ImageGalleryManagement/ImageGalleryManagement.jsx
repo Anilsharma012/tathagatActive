@@ -292,6 +292,22 @@ const ImageGalleryManagement = () => {
                     </span>
                   )}
                   {!item.isActive && <span className="inactive-badge">Inactive</span>}
+                  <div className="thumbnail-actions">
+                    <button
+                      className="thumb-btn edit-btn"
+                      onClick={() => handleOpenModal(item)}
+                      title="Edit"
+                    >
+                      <FaEdit /> Edit
+                    </button>
+                    <button
+                      className="thumb-btn delete-btn"
+                      onClick={() => handleDelete(item._id)}
+                      title="Delete"
+                    >
+                      <FaTrash /> Delete
+                    </button>
+                  </div>
                 </div>
                 <div className="card-content">
                   <h3>{item.title}</h3>
