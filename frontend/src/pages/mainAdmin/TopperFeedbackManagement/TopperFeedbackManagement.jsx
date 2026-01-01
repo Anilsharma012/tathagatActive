@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import http from "../../../utils/http";
+import AdminLayout from '../AdminLayout/AdminLayout';
 import "./TopperFeedbackManagement.css";
 
 const TopperFeedbackManagement = () => {
@@ -143,6 +144,7 @@ const TopperFeedbackManagement = () => {
   };
 
   return (
+    <AdminLayout>
     <div className="feedback-mgmt-container">
       <div className="feedback-mgmt-header">
         <h1>Toppers' Feedback Management</h1>
@@ -253,6 +255,7 @@ const TopperFeedbackManagement = () => {
         </div>
       )}
     </div>
+    </AdminLayout>
   );
 };
 

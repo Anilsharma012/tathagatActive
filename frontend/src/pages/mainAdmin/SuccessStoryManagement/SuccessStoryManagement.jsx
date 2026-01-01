@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaPlus, FaEdit, FaTrash, FaEye, FaEyeSlash, FaSearch, FaStar } from "react-icons/fa";
 import http from "../../../utils/http";
+import AdminLayout from '../AdminLayout/AdminLayout';
 import "./SuccessStoryManagement.css";
 
 const universities = [
@@ -145,6 +146,7 @@ const SuccessStoryManagement = () => {
   });
 
   return (
+    <AdminLayout>
     <div className="success-story-management">
       <div className="ssm-header">
         <h1>Success Stories Management</h1>
@@ -332,6 +334,7 @@ const SuccessStoryManagement = () => {
         </div>
       )}
     </div>
+    </AdminLayout>
   );
 };
 

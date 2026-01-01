@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as XLSX from 'xlsx';
 import axios from 'axios';
+import AdminLayout from '../AdminLayout/AdminLayout';
 import './BulkUpload.css';
 
 const BulkUpload = () => {
@@ -130,6 +131,7 @@ const BulkUpload = () => {
     };
 
     return (
+        <AdminLayout>
         <div className="bulk-upload-container">
             <h2>Bulk Upload Course Structure</h2>
             
@@ -226,6 +228,7 @@ const BulkUpload = () => {
                 </div>
             )}
         </div>
+        </AdminLayout>
     );
 };
 

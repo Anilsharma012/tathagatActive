@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaPlus, FaEdit, FaTrash, FaEye, FaBullhorn, FaFilter, FaSearch, FaThumbtack, FaUsers, FaExclamationTriangle } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import AdminLayout from '../AdminLayout/AdminLayout';
 import './Announcements.css';
 
 const Announcements = () => {
@@ -293,6 +294,7 @@ const Announcements = () => {
   };
 
   return (
+    <AdminLayout>
     <div className="announcements-container">
       <div className="announcements-header">
         <div className="header-left">
@@ -674,6 +676,7 @@ const Announcements = () => {
         </div>
       )}
     </div>
+    </AdminLayout>
   );
 };
 

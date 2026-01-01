@@ -3,6 +3,7 @@ import { useAuth } from '../../../contexts/AuthContext';
 import { useZoom } from '../../../contexts/ZoomContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import AdminLayout from '../AdminLayout/AdminLayout';
 import './ZoomManagement.css';
 
 const ZoomManagement = () => {
@@ -95,6 +96,7 @@ const ZoomManagement = () => {
     };
 
     return (
+        <AdminLayout>
         <div className="zoom-management">
             <h2>Zoom Meeting Management</h2>
 
@@ -336,6 +338,7 @@ const ZoomManagement = () => {
                 </div>
             )}
         </div>
+        </AdminLayout>
     );
 };
 

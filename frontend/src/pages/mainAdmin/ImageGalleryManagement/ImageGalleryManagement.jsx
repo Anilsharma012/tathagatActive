@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaVideo, FaImage, FaPlus, FaEdit, FaTrash, FaStar, FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import AdminLayout from '../AdminLayout/AdminLayout';
 import './ImageGalleryManagement.css';
 
 const ImageGalleryManagement = () => {
@@ -240,6 +241,7 @@ const ImageGalleryManagement = () => {
   };
 
   return (
+    <AdminLayout>
     <div className="gallery-management">
       <div className="gallery-header">
         <div>
@@ -489,6 +491,7 @@ const ImageGalleryManagement = () => {
         </div>
       )}
     </div>
+    </AdminLayout>
   );
 };
 

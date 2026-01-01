@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './DiscussionManagement.css';
+import AdminLayout from '../AdminLayout/AdminLayout';
 import {
   FiMessageCircle,
   FiUsers,
@@ -416,6 +417,7 @@ const DiscussionManagement = () => {
   );
 
   return (
+    <AdminLayout>
     <div className="discussion-management">
       <div className="management-header">
         <h1>Discussion Management</h1>
@@ -567,6 +569,7 @@ const DiscussionManagement = () => {
         )}
       </div>
     </div>
+    </AdminLayout>
   );
 };
 

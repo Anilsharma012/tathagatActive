@@ -4,6 +4,7 @@ import { FaPlus, FaEdit, FaTrash, FaEye, FaStar, FaRegStar, FaSearch, FaTimes } 
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import http from "../../../utils/http";
+import AdminLayout from '../AdminLayout/AdminLayout';
 
 const categories = ["CAT", "IPMAT", "CUET", "MBA", "B-Schools", "Info Exam", "Topper's Journey", "Other"];
 
@@ -227,6 +228,7 @@ const BlogManagement = () => {
   };
 
   return (
+    <AdminLayout>
     <div className="blog-management">
       <div className="blog-header">
         <h1>Blog Management</h1>
@@ -490,6 +492,7 @@ const BlogManagement = () => {
         </div>
       )}
     </div>
+    </AdminLayout>
   );
 };
 

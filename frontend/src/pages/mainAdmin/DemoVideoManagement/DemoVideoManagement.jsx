@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaPlus, FaEdit, FaTrash, FaEye, FaEyeSlash, FaYoutube, FaSearch } from "react-icons/fa";
 import http from "../../../utils/http";
+import AdminLayout from '../AdminLayout/AdminLayout';
 import "./DemoVideoManagement.css";
 
 const categories = ["QUANT", "VARC", "LRDI"];
@@ -127,6 +128,7 @@ const DemoVideoManagement = () => {
   });
 
   return (
+    <AdminLayout>
     <div className="demo-video-management">
       <div className="dvm-header">
         <h1>Demo Video Management</h1>
@@ -314,6 +316,7 @@ const DemoVideoManagement = () => {
         </div>
       )}
     </div>
+    </AdminLayout>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaPlus, FaEdit, FaTrash, FaEye, FaToggleOn, FaToggleOff } from "react-icons/fa";
+import AdminLayout from "../AdminLayout/AdminLayout";
 import "./PracticeTestManagement.css";
 
 const PracticeTestManagement = () => {
@@ -87,10 +88,11 @@ const PracticeTestManagement = () => {
   };
 
   if (loading) {
-    return <div className="loading-spinner">Loading practice tests...</div>;
+    return <AdminLayout><div className="loading-spinner">Loading practice tests...</div></AdminLayout>;
   }
 
   return (
+    <AdminLayout>
     <div className="practice-test-management">
       <div className="management-header">
         <h2>Practice Test Management</h2>
@@ -202,6 +204,7 @@ const PracticeTestManagement = () => {
         />
       )}
     </div>
+    </AdminLayout>
   );
 };
 

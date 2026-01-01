@@ -9,6 +9,7 @@ import StatsCards from '../../../components/LiveClasses/StatsCards';
 import { fetchLiveClasses, createLiveClass, updateLiveClass, deleteLiveClass, postNotify } from '../../../utils/liveClassesApi';
 import http from '../../../utils/http';
 import { getCache, setCache, shouldRevalidate } from '../../../utils/liveClassesCache';
+import AdminLayout from '../AdminLayout/AdminLayout';
 
 const scope = 'admin';
 
@@ -160,6 +161,7 @@ const AdminLiveClasses = () => {
   };
 
   return (
+    <AdminLayout>
     <div className="lc-container">
       <h1 className="lc-page-title">Manage Live Classes</h1>
       {offline && <div className="lc-banner">Offline/cache view</div>}
@@ -229,6 +231,7 @@ const AdminLiveClasses = () => {
       </div>
       <div className={`lc-backdrop ${drawerOpen ? 'show' : ''}`} onClick={closeDrawer} />
     </div>
+    </AdminLayout>
   );
 };
 

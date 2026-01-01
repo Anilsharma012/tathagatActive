@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import AdminLayout from '../AdminLayout/AdminLayout';
 import './CoursePurchaseContentManagement.css';
 
 const CoursePurchaseContentManagement = () => {
@@ -298,6 +299,7 @@ const CoursePurchaseContentManagement = () => {
   };
 
   return (
+    <AdminLayout>
     <div className="course-purchase-management">
       <div className="page-header">
         <h1>Course Purchase Page Management</h1>
@@ -701,6 +703,7 @@ const CoursePurchaseContentManagement = () => {
         </form>
       )}
     </div>
+    </AdminLayout>
   );
 };
 

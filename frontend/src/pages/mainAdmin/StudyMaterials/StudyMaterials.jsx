@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash, FaEye, FaFileAlt, FaFilter, FaSearch, FaBook, FaVideo, FaHistory, FaFilePdf } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import AdminLayout from '../AdminLayout/AdminLayout';
 import './StudyMaterials.css';
 
 const StudyMaterials = () => {
@@ -280,6 +281,7 @@ const StudyMaterials = () => {
   };
 
   return (
+    <AdminLayout>
     <div className="study-materials-container">
       <div className="study-materials-header">
         <div className="header-left">
@@ -773,6 +775,7 @@ const StudyMaterials = () => {
         </div>
       )}
     </div>
+    </AdminLayout>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchWithErrorHandling } from '../../../utils/api';
+import AdminLayout from '../AdminLayout/AdminLayout';
 import './StudentPerformance.css';
 
 const StudentPerformance = () => {
@@ -338,6 +339,7 @@ const StudentPerformance = () => {
   );
 
   return (
+    <AdminLayout>
     <div className="student-performance-admin">
       <div className="page-header">
         <h1>Student Performance Analytics</h1>
@@ -363,6 +365,7 @@ const StudentPerformance = () => {
         {activeTab === 'students' ? renderStudentsTab() : renderTestsTab()}
       </div>
     </div>
+    </AdminLayout>
   );
 };
 

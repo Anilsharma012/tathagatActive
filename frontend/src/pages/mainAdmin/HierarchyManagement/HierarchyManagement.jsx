@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchWithErrorHandling } from '../../../utils/api';
+import AdminLayout from '../AdminLayout/AdminLayout';
 import './HierarchyManagement.css';
 
 const HierarchyManagement = () => {
@@ -395,6 +396,7 @@ const HierarchyManagement = () => {
   };
 
   return (
+    <AdminLayout>
     <div className="hierarchy-management">
       <div className="page-header">
         <h1>Hierarchy Management</h1>
@@ -472,6 +474,7 @@ const HierarchyManagement = () => {
         </div>
       </div>
     </div>
+    </AdminLayout>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import http from "../../../utils/http";
+import AdminLayout from '../AdminLayout/AdminLayout';
 import "./ScoreCardManagement.css";
 
 const ScoreCardManagement = () => {
@@ -156,6 +157,7 @@ const ScoreCardManagement = () => {
   };
 
   return (
+    <AdminLayout>
     <div className="scorecard-mgmt-container">
       <div className="scorecard-mgmt-header">
         <h1>Score Card Management</h1>
@@ -323,6 +325,7 @@ const ScoreCardManagement = () => {
         </div>
       )}
     </div>
+    </AdminLayout>
   );
 };
 

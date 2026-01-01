@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash, FaEye, FaFilePdf, FaFilter, FaSearch, FaUpload, FaVideo, FaFile } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import AdminLayout from '../AdminLayout/AdminLayout';
 import './PdfManagement.css';
 
 const PdfManagement = () => {
@@ -287,6 +288,7 @@ const PdfManagement = () => {
   };
 
   return (
+    <AdminLayout>
     <div className="pdf-management-container">
       <div className="pdf-management-header">
         <div className="header-left">
@@ -649,6 +651,7 @@ const PdfManagement = () => {
         </div>
       )}
     </div>
+    </AdminLayout>
   );
 };
 

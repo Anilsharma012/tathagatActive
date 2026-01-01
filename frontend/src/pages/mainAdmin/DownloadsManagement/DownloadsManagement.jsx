@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import AdminLayout from '../AdminLayout/AdminLayout';
 import './DownloadsManagement.css';
 
 const API_BASE = '/api/downloads';
@@ -281,6 +282,7 @@ const DownloadsManagement = () => {
   const filteredTests = tests.filter(test => test.isActive !== false);
 
   return (
+    <AdminLayout>
     <div className="downloads-management">
       <div className="downloads-header">
         <h1>Downloads Management</h1>
@@ -567,6 +569,7 @@ const DownloadsManagement = () => {
         </div>
       )}
     </div>
+    </AdminLayout>
   );
 };
 

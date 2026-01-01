@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import AdminLayout from '../AdminLayout/AdminLayout';
 import './TopPerformerManagement.css';
 
 const TopPerformerManagement = () => {
@@ -163,6 +164,7 @@ const TopPerformerManagement = () => {
   };
 
   return (
+    <AdminLayout>
     <div className="top-performer-management">
       <div className="page-header">
         <h1>Best Results Management</h1>
@@ -314,6 +316,7 @@ const TopPerformerManagement = () => {
         </div>
       )}
     </div>
+    </AdminLayout>
   );
 };
 

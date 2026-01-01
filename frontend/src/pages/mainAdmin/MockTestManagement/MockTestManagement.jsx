@@ -3,6 +3,7 @@ import { fetchWithErrorHandling } from '../../../utils/api';
 import PaperWiseManagement from './PaperWiseManagement';
 import TopicWiseManagement from './TopicWiseManagement';
 import QuestionBuilder from './QuestionBuilder';
+import AdminLayout from '../AdminLayout/AdminLayout';
 import './MockTestManagement.css';
 
 const MockTestManagement = () => {
@@ -392,6 +393,7 @@ const MockTestManagement = () => {
   };
 
   return (
+    <AdminLayout>
     <div className="mock-test-management">
       <div className="page-header">
         <h1>Mock Test Management</h1>
@@ -555,6 +557,7 @@ const MockTestManagement = () => {
         </div>
       )}
     </div>
+    </AdminLayout>
   );
 };
 
