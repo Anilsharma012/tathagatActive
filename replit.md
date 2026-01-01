@@ -54,6 +54,10 @@ The application runs in development mode without a database, using mock data fal
 - Admin panel for content management
 
 ## Recent Changes
+- 2026-01-01: Backend Route Fixes
+  - Fixed invoiceRoutes.js: Changed import from User to UserSchema
+  - Fixed notificationRoutes.js: Changed userAuth to authMiddleware
+
 - 2026-01-01: Free Mock Tests in Downloads Section
   - Added downloadStatus field (PUBLISHED/COMING_SOON) to MockTest model
   - Free mock tests (created without course) now appear in Admin Downloads section
