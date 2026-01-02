@@ -1,11 +1,18 @@
 const nodemailer = require('nodemailer');
 
+// Log email configuration status on module load
+console.log('📧 Email Service Status:', {
+  emailConfigured: !!process.env.EMAIL,
+  passwordConfigured: !!process.env.EMAIL_PASSWORD,
+  emailUser: process.env.EMAIL ? process.env.EMAIL.substring(0, 5) + '***' : 'not set'
+});
+
 const createTransporter = () => {
   const emailUser = process.env.EMAIL;
   const emailPass = process.env.EMAIL_PASSWORD;
   
   if (!emailUser || !emailPass) {
-    console.log('⚠️ Email credentials not configured');
+    console.log('⚠️ Email credentials not configured - EMAIL:', !!emailUser, 'PASSWORD:', !!emailPass);
     return null;
   }
   
