@@ -54,6 +54,13 @@ The application runs in development mode without a database, using mock data fal
 - Admin panel for content management
 
 ## Recent Changes
+- 2026-01-02: Email Notifications on Signup/Login
+  - Created authEmailService.js with sendWelcomeEmail and sendLoginNotificationEmail functions
+  - Integrated email notifications into OTP verification routes (both email and phone)
+  - New users receive a welcome email upon successful signup
+  - Returning users receive a login notification email
+  - Uses EMAIL and EMAIL_PASSWORD secrets for Gmail SMTP
+
 - 2026-01-01: Mock Test Navigation & Email Requirement
   - Fixed "Attempt Now" button on free mock tests to navigate directly to the test instructions page
   - Users now go to /student/mock-test/:id/instructions instead of generic study-zone section

@@ -4,6 +4,7 @@ const User = require("../models/UserSchema");
 const OTP = require("../models/OtpSchema");
 const { authMiddleware, adminAuth } = require("../middleware/authMiddleware");
 const jwt = require("jsonwebtoken");
+const { sendWelcomeEmail, sendLoginNotificationEmail } = require("../services/authEmailService");
 
 const mongoose=require("mongoose")
 
@@ -230,6 +231,19 @@ router.post("/verify", async (req, res) => {
         user,
         redirectTo,
     });
+
+    // ✅ Send email notification (async, don't block response)
+    if (!user.welcomeEmailSent) {
+      // First time signup - send welcome email
+      sendWelcomeEmail(user).then(async (sent) => {
+        if (sent) {
+          await User.findByIdAndUpdate(user._id, { welcomeEmailSent: true });
+        }
+      }).catch(err => console.log('Welcome email error:', err.message));
+    } else {
+      // Returning user - send login notification
+      sendLoginNotificationEmail(user).catch(err => console.log('Login email error:', err.message));
+    }
 
   } catch (error) {
     console.error("❌ Server Error in OTP Verification:", error);
@@ -505,6 +519,21 @@ router.post("/mobileVerify-otp", async (req, res) => {
         redirectTo,
       });
   
+      // ✅ Send email notification (async, don't block response)
+      if (user.email) {
+        if (!user.welcomeEmailSent) {
+          // First time signup - send welcome email
+          sendWelcomeEmail(user).then(async (sent) => {
+            if (sent) {
+              await User.findByIdAndUpdate(user._id, { welcomeEmailSent: true });
+            }
+          }).catch(err => console.log('Welcome email error:', err.message));
+        } else {
+          // Returning user - send login notification
+          sendLoginNotificationEmail(user).catch(err => console.log('Login email error:', err.message));
+        }
+      }
+
     } catch (error) {
       console.error("❌ Error verifying OTP:", error);
       res.status(500).json({ message: "Server error", error });
