@@ -337,10 +337,13 @@ exports.updateDetails = async (req, res) => {
             existingEmailUser.selectedExam = currentUser.selectedExam;
 
           existingEmailUser.isOnboardingComplete = true;
-          await existingEmailUser.save();
-
-          // Delete the temporary phone-only account
+          
+          // IMPORTANT: Delete the phone-only account FIRST to free up the phone number
+          // This prevents duplicate key error on phoneNumber field
           await User.findByIdAndDelete(userId);
+          
+          // Now save the email account with the phone number
+          await existingEmailUser.save();
 
           // Generate new token for merged account
           const newToken = signToken(existingEmailUser);
