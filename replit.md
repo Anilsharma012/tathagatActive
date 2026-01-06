@@ -129,6 +129,12 @@ The application runs in development mode without a database, using mock data fal
   - Now users who completed onboarding are redirected directly to dashboard (`/study-zone`)
   - Auto-fix for existing users: sets `isOnboardingComplete=true` when all profile fields exist
   
+- 2026-01-06: Replit Environment Setup
+  - Migrated all sensitive credentials from .env to Replit Secrets (MONGO_URI, JWT_SECRET, RAZORPAY keys, EMAIL credentials, KARIX SMS keys)
+  - Configured workflows: Frontend (port 5000 with webview), Backend (port 3001 with console)
+  - Frontend configured with HOST=0.0.0.0 and DANGEROUSLY_DISABLE_HOST_CHECK=true for Replit proxy compatibility
+  - Backend CORS configured to allow all origins in development mode
+
 - 2025-12-31: Initial Replit setup
   - Renamed directories to remove spaces
   - Configured workflows for frontend (port 5000) and backend (port 3001)
