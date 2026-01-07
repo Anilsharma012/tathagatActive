@@ -110,7 +110,7 @@ exports.verifyPhoneOtp = async (req, res) => {
     // Determine redirect based on user profile completion
     let redirectTo = "/student/dashboard";
     if (!user.isOnboardingComplete) {
-      redirectTo = "/student/onboarding";
+      redirectTo = "/user-details";
     } else if (!user.name || !user.email) {
       redirectTo = "/user-details";
     }

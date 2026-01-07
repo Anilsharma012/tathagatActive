@@ -203,7 +203,7 @@ exports.verifyToken = async (req, res) => {
     // Determine redirect based on onboarding status
     let redirectTo = "/student/dashboard";
     if (!user.isOnboardingComplete) {
-      redirectTo = "/student/onboarding";
+      redirectTo = "/user-details";
     } else if (!user.name || !user.email) {
       redirectTo = "/user-details";
     }

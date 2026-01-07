@@ -210,7 +210,7 @@ router.post("/verify", async (req, res) => {
       );
 
     // ✅ Determine Redirect Path - Check if returning user
-    let redirectTo = "/student/onboarding";  
+    let redirectTo = "/user-details";  
     const adminEmails = ["takoria2204@gmail.com", "superadmin@lms.com"];
     
     if (adminEmails.includes(user.email)) {
@@ -221,8 +221,8 @@ router.post("/verify", async (req, res) => {
       // ✅ Returning user - direct to dashboard (no need to fill details again)
       redirectTo = "/student/dashboard";
     } else {
-      // ✅ New user - go to onboarding flow
-      redirectTo = "/student/onboarding";
+      // ✅ New user - go to user-details flow
+      redirectTo = "/user-details";
     }
 
     res.status(200).json({
@@ -497,7 +497,7 @@ router.post("/mobileVerify-otp", async (req, res) => {
       );
   
       // ✅ 5️⃣ Smart Redirect Logic - Check if returning user
-      let redirectTo = "/student/onboarding";  
+      let redirectTo = "/user-details";  
       const adminPhone = ["7015242845", "7015242846"];
       
       if (adminPhone.includes(user.phoneNumber)) {
@@ -508,8 +508,8 @@ router.post("/mobileVerify-otp", async (req, res) => {
         // ✅ Returning user - direct to dashboard (no need to fill details again)
         redirectTo = "/student/dashboard";
       } else {
-        // ✅ New user - go to onboarding flow (same UI as email verification)
-        redirectTo = "/student/onboarding";
+        // ✅ New user - go to user-details flow
+        redirectTo = "/user-details";
       }
   
       res.status(200).json({
@@ -562,7 +562,7 @@ router.post("/mobileVerify-otp", async (req, res) => {
     }
 
     // ✅ Return User + Optional redirect suggestion
-    let redirectTo = "/student/onboarding";
+    let redirectTo = "/user-details";
 
     // ✅ Auto-fix: Set isOnboardingComplete for existing users who have all fields filled
     if (!user.isOnboardingComplete && user.name && user.city && user.gender &&
@@ -576,8 +576,8 @@ router.post("/mobileVerify-otp", async (req, res) => {
       // ✅ Returning user - direct to dashboard
       redirectTo = "/student/dashboard";
     } else {
-      // ✅ New user - go to onboarding flow
-      redirectTo = "/student/onboarding";
+      // ✅ New user - go to user-details flow
+      redirectTo = "/user-details";
     }
 
     return res.status(200).json({ user, redirectTo });
