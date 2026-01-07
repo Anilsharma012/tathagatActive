@@ -31,7 +31,7 @@ const AuthLogin = () => {
             if (user.isOnboardingComplete) {
               navigate("/student/dashboard");
             } else {
-              navigate("/student/onboarding");
+              navigate("/user-details");
             }
           }
         } catch (err) {
@@ -54,15 +54,14 @@ const AuthLogin = () => {
   }, [resendTimer]);
 
   const handleOtpChange = (index, value) => {
-    if (value.length > 1) {
-      value = value.slice(-1);
-    }
-    const newOtp = [...otp];
-    newOtp[index] = value;
-    setOtp(newOtp);
-    
-    if (value && index < 5) {
-      otpRefs.current[index + 1]?.focus();
+    if (/^\d$/.test(value) || value === "") {
+      const newOtp = [...otp];
+      newOtp[index] = value;
+      setOtp(newOtp);
+      
+      if (value && index < 5) {
+        otpRefs.current[index + 1]?.focus();
+      }
     }
   };
 
@@ -78,6 +77,23 @@ const AuthLogin = () => {
         setOtp(newOtp);
         otpRefs.current[index - 1]?.focus();
       }
+    }
+  };
+
+  const handleOtpPaste = (e) => {
+    e.preventDefault();
+    const pastedData = e.clipboardData.getData("text").trim();
+    const digits = pastedData.replace(/\D/g, "").slice(0, 6);
+    
+    if (digits.length > 0) {
+      const newOtp = [...otp];
+      for (let i = 0; i < 6; i++) {
+        newOtp[i] = digits[i] || "";
+      }
+      setOtp(newOtp);
+      
+      const focusIndex = Math.min(digits.length, 5);
+      otpRefs.current[focusIndex]?.focus();
     }
   };
 
@@ -147,7 +163,7 @@ const AuthLogin = () => {
           if (response.data.user?.isOnboardingComplete) {
             navigate("/student/dashboard");
           } else {
-            navigate("/student/onboarding");
+            navigate("/user-details");
           }
         }, 500);
       }
@@ -265,10 +281,12 @@ const AuthLogin = () => {
                       key={index}
                       ref={el => otpRefs.current[index] = el}
                       type="text"
+                      inputMode="numeric"
                       maxLength={1}
                       value={digit}
                       onChange={(e) => handleOtpChange(index, e.target.value)}
                       onKeyDown={(e) => handleOtpKeyDown(index, e)}
+                      onPaste={handleOtpPaste}
                       className="otp-input"
                     />
                   ))}

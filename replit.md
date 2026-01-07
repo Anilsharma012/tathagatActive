@@ -129,9 +129,14 @@ The application runs in development mode without a database, using mock data fal
   - Now users who completed onboarding are redirected directly to dashboard (`/study-zone`)
   - Auto-fix for existing users: sets `isOnboardingComplete=true` when all profile fields exist
   
+- 2026-01-07: OTP Input and Registration Flow Fixes
+  - Added OTP paste functionality: can now paste full 6-digit OTP code and it fills all fields
+  - Fixed OTP backspace behavior: first backspace clears current field, second backspace moves to previous field
+  - Fixed OTP input to only accept numeric digits
+  - Changed new user registration redirect: now goes to /user-details page instead of /student/onboarding (exam category flow)
+
 - 2026-01-07: Student LMS Mobile View Fixes (Part 2)
   - Increased student sidebar item sizes: font-size 16px, padding 14px 16px, gap 12px for better touch targets
-  - Fixed OTP input behavior: backspace now deletes current field then moves to previous, typing auto-advances to next field
   - Fixed hamburger menu alignment on mobile: now left-aligned with justify-content: flex-start
 
 - 2026-01-07: Student LMS Mobile View Fixes
