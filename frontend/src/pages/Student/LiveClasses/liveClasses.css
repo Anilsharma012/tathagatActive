@@ -282,3 +282,149 @@ button.lc-btn {
   color: #6b7280;
   font-weight: 600;
 }
+
+/* ================================================
+   LIVE CLASSES - ENHANCED MOBILE RESPONSIVE
+   ================================================ */
+@media (max-width: 768px) {
+  .lc-view {
+    padding-bottom: 80px;
+  }
+
+  .lc-header {
+    padding: 14px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .lc-page-title {
+    font-size: 22px;
+    width: 100%;
+  }
+
+  /* Back button full width */
+  .lc-back-btn,
+  .lc-header .back-btn {
+    width: 100%;
+    text-align: center;
+    padding: 12px 16px;
+    min-height: 44px;
+    border-radius: 10px;
+  }
+
+  /* Tab controls */
+  .lc-tabs,
+  .lc-filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 14px;
+    margin-bottom: 16px;
+  }
+
+  .lc-tabs .tab,
+  .lc-filter-tabs .tab,
+  .lc-tab-btn {
+    flex: 1 1 calc(33.33% - 8px);
+    min-width: 90px;
+    text-align: center;
+    min-height: 44px;
+    padding: 10px 12px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+
+  /* Video wrap */
+  .lc-video-wrap {
+    padding: 0 14px 14px;
+  }
+
+  .lc-placeholder {
+    min-height: 200px;
+  }
+
+  /* Meta items */
+  .lc-meta {
+    padding: 0 14px 14px;
+    gap: 10px;
+  }
+
+  .lc-meta-item {
+    padding: 14px;
+  }
+
+  .lc-meta-label {
+    font-size: 11px;
+  }
+
+  .lc-meta-value {
+    font-size: 14px;
+  }
+
+  /* Cards */
+  .lc-card {
+    padding: 14px;
+    margin: 0 14px 14px;
+    border-radius: 12px;
+  }
+
+  /* Empty state */
+  .lc-empty-state,
+  .lc-no-classes {
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .lc-empty-state img,
+  .lc-no-classes img {
+    max-width: 100px;
+    margin: 0 auto 16px;
+  }
+
+  .lc-empty-state h3,
+  .lc-no-classes h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .lc-empty-state p,
+  .lc-no-classes p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Sticky bar */
+  .lc-sticky-bar {
+    padding: 12px 14px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .lc-bar-btn {
+    flex: 1 1 calc(50% - 10px);
+    min-width: 120px;
+    text-align: center;
+    min-height: 44px;
+  }
+
+  /* Notes */
+  .lc-notes {
+    padding: 0 14px;
+    margin-bottom: 100px;
+  }
+
+  .lc-notes-title {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 400px) {
+  .lc-tabs .tab,
+  .lc-filter-tabs .tab {
+    flex: 1 1 100%;
+  }
+
+  .lc-bar-btn {
+    flex: 1 1 100%;
+  }
+}

@@ -4023,3 +4023,137 @@ select:focus {
   color: white;
   font-size: 1.25rem;
 }
+
+/* ================================================
+   ENHANCED MOBILE RESPONSIVE STYLES
+   ================================================ */
+@media (max-width: 768px) {
+  /* Dashboard welcome header */
+  .dashboard-header {
+    text-align: center;
+    padding: 0 4px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 22px;
+    line-height: 1.3;
+    word-break: break-word;
+  }
+
+  /* Stats grid 2x2 */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .stat-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 16px 12px;
+    gap: 8px;
+  }
+
+  .stat-card .stat-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+  }
+
+  .stat-info h3 {
+    font-size: 24px;
+    margin-bottom: 2px;
+  }
+
+  .stat-info p {
+    font-size: 11px;
+    line-height: 1.3;
+  }
+
+  /* Dashboard grid stack on mobile */
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  /* Cards */
+  .progress-chart-card,
+  .upcoming-classes-card,
+  .course-progress-card {
+    padding: 16px;
+  }
+
+  /* Class items */
+  .class-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .class-time {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .join-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 44px;
+  }
+
+  /* Course cards */
+  .courses-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .course-card {
+    padding: 0;
+  }
+
+  .course-details {
+    padding: 16px;
+  }
+
+  .course-actions {
+    flex-direction: column;
+  }
+
+  .enroll-btn,
+  .continue-btn {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .preview-btn {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  /* Section headers */
+  .section-header {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .section-header h2 {
+    font-size: 20px;
+  }
+
+  .filter-buttons {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-header h1 {
+    font-size: 20px;
+  }
+}

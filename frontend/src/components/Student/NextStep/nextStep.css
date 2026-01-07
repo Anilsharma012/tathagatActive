@@ -20,12 +20,23 @@
 .ns-live{color:#16a34a;font-weight:800}
 .ns-error{background:#fef2f2;border-color:#fee2e2}
 
-@media (max-width: 480px) {
-  .ns-card{padding:12px;border-radius:12px}
-  .ns-header{flex-direction:column;align-items:flex-start;gap:6px}
+@media (max-width: 768px) {
+  .ns-card{padding:14px;border-radius:12px;max-width:100%}
+  .ns-header{flex-direction:column;align-items:flex-start;gap:8px}
+  .ns-title{font-size:15px;line-height:1.4}
+  .ns-badge{margin-left:0;font-size:11px;padding:5px 10px}
+  .ns-chips{gap:6px;margin-top:4px}
+  .ns-chip{font-size:11px;padding:4px 10px}
+  .ns-cta{margin-top:12px}
+  .ns-cta-title{font-size:14px;line-height:1.4}
+  .ns-btn{padding:12px;font-size:14px;width:100%;min-height:44px;display:flex;align-items:center;justify-content:center}
+  .ns-session{padding:12px}
+  .ns-time{font-size:12px}
+  .ns-muted{font-size:11px}
+}
+
+@media (max-width: 400px) {
+  .ns-card{padding:12px}
   .ns-title{font-size:14px}
-  .ns-badge{margin-left:0}
-  .ns-cta-title{font-size:14px}
-  .ns-btn{padding:10px;font-size:13px;width:100%}
-  .ns-session{padding:10px}
+  .ns-chip{font-size:10px;padding:3px 8px}
 }
