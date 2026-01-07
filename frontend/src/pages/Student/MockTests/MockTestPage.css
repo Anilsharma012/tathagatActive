@@ -358,13 +358,20 @@
     grid-template-columns: 1fr;
   }
 
+  /* Main tabs - horizontal scroll */
   .main-tabs {
-    flex-direction: column;
-    align-items: stretch;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 8px;
+    justify-content: flex-start;
   }
 
   .tab {
-    text-align: center;
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 
   .sub-tabs {
@@ -455,16 +462,40 @@
     border-radius: 12px;
   }
 
-  /* Main tabs as vertical stack */
+  /* Main tabs - horizontal scroll on mobile */
   .main-tabs {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 8px;
-    padding-bottom: 0;
+    padding-bottom: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+
+  .main-tabs::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .main-tabs::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .main-tabs::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
   }
 
   .tab {
-    width: 100%;
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 10px 16px;
+    font-size: 13px;
+    width: auto;
     text-align: center;
     padding: 12px 16px;
     min-height: 44px;

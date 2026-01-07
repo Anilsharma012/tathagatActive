@@ -54,6 +54,16 @@ The application runs in development mode without a database, using mock data fal
 - Admin panel for content management
 
 ## Recent Changes
+- 2026-01-07: Mock Test Tabs Horizontal Scroll & Icon Design Update
+  - Mock test tabs (Previous Year, Full Test, Series Test, Module Test) now have horizontal scroll on mobile
+  - Updated status legend icon designs to match reference:
+    - Answered: Green horizontal hexagon
+    - Not Answered: Red/maroon circle
+    - Not Visited: Gray square
+    - Marked for Review: Purple circle
+    - Answered & Marked: Purple circle with green checkmark badge
+  - Palette buttons updated to match the new icon designs
+
 - 2026-01-07: Mock Test Attempt Page - Profile & Status Legend Mobile Fix
   - Fixed profile section (avatar + username) to center properly on mobile
   - Fixed status legend items (Answered, Not Answered, Not Visited, Marked for Review, Answered & Marked) to not cut/overlap
