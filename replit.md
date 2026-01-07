@@ -54,6 +54,13 @@ The application runs in development mode without a database, using mock data fal
 - Admin panel for content management
 
 ## Recent Changes
+- 2026-01-07: Mock Test Attempt Page - Profile & Status Legend Mobile Fix
+  - Fixed profile section (avatar + username) to center properly on mobile
+  - Fixed status legend items (Answered, Not Answered, Not Visited, Marked for Review, Answered & Marked) to not cut/overlap
+  - Added proper text wrapping and spacing for legend text
+  - Question palette grid responsive: 6 columns on tablet, 5 columns on mobile
+  - Profile avatar size adjusted for different screen sizes
+
 - 2026-01-07: Mobile View Fixes for My Courses and Mock Tests
   - Fixed MyCourses.css: Reformatted and added mobile responsive styles
   - Course stats grid shows as 2x2 on mobile (was 3 columns)
