@@ -10,6 +10,7 @@ const User = require("../models/UserSchema");
 const Course = require("../models/course/Course");
 const Payment = require("../models/Payment");
 const Receipt = require("../models/Receipt");
+const { sendCoursePurchaseEmail } = require("../services/authEmailService");
 
 // ---------------- Helpers ----------------
 const getUserId = (req) => req.user?.id || req.user?._id || req.user?.userId;
@@ -947,6 +948,9 @@ exports.verifyAndUnlockPayment = async (req, res) => {
 
     await user.save();
 
+    // Fetch course details for email
+    const course = await Course.findById(courseId).lean();
+
     // Create receipt (best-effort) - kept minimal like your original
     try {
       await Receipt.create({
@@ -960,6 +964,12 @@ exports.verifyAndUnlockPayment = async (req, res) => {
       });
     } catch (e) {
       console.warn("Receipt create warning:", e?.message);
+    }
+
+    // Send course purchase confirmation email (async, don't block response)
+    if (user.email && course) {
+      sendCoursePurchaseEmail(user, course, { amount: course.price * 100 })
+        .catch(err => console.log('Purchase email error:', err.message));
     }
 
     return res.json({

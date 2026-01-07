@@ -172,7 +172,113 @@ const sendLoginNotificationEmail = async (user) => {
   }
 };
 
+const sendCoursePurchaseEmail = async (user, course, paymentDetails = {}) => {
+  const transporter = createTransporter();
+  if (!transporter || !user.email) {
+    console.log('📧 Purchase email skipped: no transporter or user email');
+    return false;
+  }
+  
+  try {
+    const purchaseDate = new Date().toLocaleString('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      dateStyle: 'full',
+      timeStyle: 'short'
+    });
+    
+    const courseName = course?.name || 'Course';
+    const amount = paymentDetails.amount ? `₹${(paymentDetails.amount / 100).toLocaleString('en-IN')}` : '';
+    
+    const mailOptions = {
+      from: `"TathaGat Classes" <${process.env.EMAIL}>`,
+      to: user.email,
+      subject: `Payment Successful - ${courseName} | TathaGat Classes`,
+      html: `
+        <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff;">
+          <div style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); padding: 40px 30px; text-align: center; border-radius: 8px 8px 0 0;">
+            <div style="background: white; width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;">
+              <span style="font-size: 30px;">✓</span>
+            </div>
+            <h1 style="color: white; margin: 0; font-size: 28px; font-weight: 600;">Payment Successful!</h1>
+            <p style="color: rgba(255,255,255,0.9); margin-top: 10px; font-size: 16px;">Your course is now unlocked</p>
+          </div>
+          
+          <div style="padding: 40px 30px; background: #f8f9fa;">
+            <h2 style="color: #333; margin-top: 0;">Hi ${user.name || 'Student'}! 🎉</h2>
+            
+            <p style="color: #555; font-size: 16px; line-height: 1.8;">
+              Congratulations! Your payment has been successfully processed and your course is now ready to access.
+            </p>
+            
+            <div style="background: white; border-radius: 8px; padding: 25px; margin: 25px 0; border: 1px solid #e0e0e0;">
+              <h3 style="color: #333; margin-top: 0; border-bottom: 2px solid #11998e; padding-bottom: 10px;">Order Details</h3>
+              <table style="width: 100%; color: #555; font-size: 15px;">
+                <tr>
+                  <td style="padding: 8px 0;"><strong>Course:</strong></td>
+                  <td style="padding: 8px 0; text-align: right;">${courseName}</td>
+                </tr>
+                ${amount ? `
+                <tr>
+                  <td style="padding: 8px 0;"><strong>Amount Paid:</strong></td>
+                  <td style="padding: 8px 0; text-align: right; color: #11998e; font-weight: 600;">${amount}</td>
+                </tr>
+                ` : ''}
+                <tr>
+                  <td style="padding: 8px 0;"><strong>Purchase Date:</strong></td>
+                  <td style="padding: 8px 0; text-align: right;">${purchaseDate}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0;"><strong>Status:</strong></td>
+                  <td style="padding: 8px 0; text-align: right;"><span style="background: #d4edda; color: #155724; padding: 4px 12px; border-radius: 20px; font-size: 13px;">Confirmed</span></td>
+                </tr>
+              </table>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px; padding: 20px; margin: 25px 0; text-align: center;">
+              <p style="color: white; margin: 0 0 15px; font-size: 16px;">Ready to start learning?</p>
+              <a href="https://tathagat.com/study-zone" 
+                 style="background: white; 
+                        color: #667eea; 
+                        padding: 12px 35px; 
+                        text-decoration: none; 
+                        border-radius: 25px; 
+                        font-weight: 600;
+                        font-size: 15px;
+                        display: inline-block;">
+                Access Your Course
+              </a>
+            </div>
+            
+            <div style="background: #fff3cd; border-radius: 8px; padding: 15px; margin-top: 20px;">
+              <p style="color: #856404; margin: 0; font-size: 14px;">
+                <strong>💡 Tip:</strong> Download the TathaGat app for a better learning experience on mobile devices.
+              </p>
+            </div>
+          </div>
+          
+          <div style="background: #333; padding: 25px 30px; text-align: center; border-radius: 0 0 8px 8px;">
+            <p style="color: #aaa; margin: 0 0 10px; font-size: 13px;">
+              Need help? Contact us at support@tathagat.com
+            </p>
+            <p style="color: #777; margin: 0; font-size: 12px;">
+              © ${new Date().getFullYear()} TathaGat Classes. All rights reserved.
+            </p>
+          </div>
+        </div>
+      `
+    };
+    
+    await transporter.sendMail(mailOptions);
+    console.log('✅ Course purchase email sent to:', user.email);
+    return true;
+  } catch (error) {
+    console.error('❌ Error sending purchase email:', error.message);
+    return false;
+  }
+};
+
 module.exports = {
   sendWelcomeEmail,
-  sendLoginNotificationEmail
+  sendLoginNotificationEmail,
+  sendCoursePurchaseEmail
 };
