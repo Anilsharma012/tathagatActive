@@ -129,6 +129,11 @@ The application runs in development mode without a database, using mock data fal
   - Now users who completed onboarding are redirected directly to dashboard (`/study-zone`)
   - Auto-fix for existing users: sets `isOnboardingComplete=true` when all profile fields exist
   
+- 2026-01-07: Student LMS Mobile View Fixes (Part 2)
+  - Increased student sidebar item sizes: font-size 16px, padding 14px 16px, gap 12px for better touch targets
+  - Fixed OTP input behavior: backspace now deletes current field then moves to previous, typing auto-advances to next field
+  - Fixed hamburger menu alignment on mobile: now left-aligned with justify-content: flex-start
+
 - 2026-01-07: Student LMS Mobile View Fixes
   - Fixed overflow issues on mobile by adding overflow-x: hidden to .student-lms, .lms-main, and .lms-content
   - Enhanced media queries for 768px and 480px breakpoints with improved stat cards, search box, and header layout

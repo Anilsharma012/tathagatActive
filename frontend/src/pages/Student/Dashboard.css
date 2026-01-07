@@ -135,6 +135,7 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  justify-content: flex-start;
 }
 
 .menu-toggle {
@@ -2018,8 +2019,13 @@ input:checked + .slider:before {
   }
 
   .header-left {
-    flex: 1;
+    flex: 0 0 auto;
     min-width: 0;
+    justify-content: flex-start;
+  }
+
+  .menu-toggle {
+    margin-right: auto;
   }
 
   .close-sidebar {

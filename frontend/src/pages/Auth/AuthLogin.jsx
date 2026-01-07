@@ -54,7 +54,9 @@ const AuthLogin = () => {
   }, [resendTimer]);
 
   const handleOtpChange = (index, value) => {
-    if (value.length > 1) return;
+    if (value.length > 1) {
+      value = value.slice(-1);
+    }
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
@@ -65,8 +67,17 @@ const AuthLogin = () => {
   };
 
   const handleOtpKeyDown = (index, e) => {
-    if (e.key === "Backspace" && !otp[index] && index > 0) {
-      otpRefs.current[index - 1]?.focus();
+    if (e.key === "Backspace") {
+      e.preventDefault();
+      const newOtp = [...otp];
+      if (otp[index]) {
+        newOtp[index] = "";
+        setOtp(newOtp);
+      } else if (index > 0) {
+        newOtp[index - 1] = "";
+        setOtp(newOtp);
+        otpRefs.current[index - 1]?.focus();
+      }
     }
   };
 
