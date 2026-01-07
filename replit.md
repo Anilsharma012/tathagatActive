@@ -54,6 +54,13 @@ The application runs in development mode without a database, using mock data fal
 - Admin panel for content management
 
 ## Recent Changes
+- 2026-01-07: Mobile View Fixes for My Courses and Mock Tests
+  - Fixed MyCourses.css: Reformatted and added mobile responsive styles
+  - Course stats grid shows as 2x2 on mobile (was 3 columns)
+  - Features list displays in single column on mobile
+  - Mock Test cards compact on mobile (480px): hides description and meta info
+  - Only shows test name, badge, and Start Test button on small screens
+
 - 2026-01-07: Global Responsive Design System Implementation
   - Created comprehensive global-responsive.css with mobile-first rules
   - Applied across all pages: no horizontal scroll, consistent spacing, typography scale
