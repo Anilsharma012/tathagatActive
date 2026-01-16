@@ -292,15 +292,15 @@
   border-radius: 10px;
 }
 .youtube{
-    height: 70px;
-    width: 70px;
+    height: 90px;
+    width: 115px;
     background: none;
     background-color:black;
     background: black;
     position: relative;
 
-    top: 14px;
-    left: 15px;
+    top: 10px;
+   right: -22px;
 }
 .card-style-9 {
   background: #f9fafb;
@@ -538,3 +538,47 @@
   border-radius: 10px;
 }
 
+
+
+
+
+
+
+
+
+
+/* ===== CAT Reviews: Vertical auto scroller (inside the card only) ===== */
+.wt-vreview-viewport {
+  max-height: 320px;          /* visible window height */
+  overflow-y: auto;           /* JS controls scrollTop */
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: auto;      /* JS ke liye */
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.wt-vreview-viewport::-webkit-scrollbar { display: none; }
+.wt-vreview-viewport { scrollbar-width: none; }
+
+.wt-vreview-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wt-vreview-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* UX: hover par drag feel */
+.wt-vreview-viewport:hover { cursor: grab; }
+
+@media (max-width: 640px) {
+  .wt-vreview-viewport { max-height: 260px; }
+}

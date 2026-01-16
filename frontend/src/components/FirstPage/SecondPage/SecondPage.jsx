@@ -2,7 +2,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SecondPage.css";
-import mentorImage from "../../../images/mnbv.png";
+
+// ✅ ONLY Mobile image (sliding image will show ONLY on mobile)
+import mentorImageMobile from "../../../images/newyear.jpeg";
+
+// ✅ Background image (TAT26)
+import bgImage from "../../../images/TAT26.jpeg";
 
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -17,10 +22,23 @@ const badges = [
 
 const examsSet = ["CAT | XAT | SNAP ", "CUET | IPMAT"];
 
-// ✅ YouTube constants
+// ✅ YouTube constants (as given — kept as-is)
 const YT_ID = "LOtxfzDHcew";
 const YT_URL = "https://youtu.be/LOtxfzDHcew?si=ZMeaSoUqEgjJybi5";
 const YT_EMBED = `https://www.youtube.com/embed/${YT_ID}?autoplay=1&rel=0&modestbranding=1`;
+
+// ✅ helper to build a prod-safe embed URL (nocookie + dynamic origin)
+const buildSafeEmbed = (id, { autoplay = 1, jsapi = 1 } = {}) => {
+  if (!id) return null;
+  const base = `https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1&playsinline=1`;
+  const ap = `&autoplay=${autoplay ? 1 : 0}`;
+  const jp = jsapi ? "&enablejsapi=1" : "";
+  const origin =
+    typeof window !== "undefined"
+      ? `&origin=${encodeURIComponent(window.location.origin)}`
+      : "";
+  return `${base}${ap}${jp}${origin}`;
+};
 
 const SecondPage = () => {
   const [badgeIndex, setBadgeIndex] = useState(0);
@@ -69,10 +87,13 @@ const SecondPage = () => {
     setModalOpen(false);
   };
 
+  const YT_EMBED_SAFE = buildSafeEmbed(YT_ID, { autoplay: 1, jsapi: 1 });
+
   return (
     <section className="mentors-wrapper">
-      <div className="mentors-section">
-        <div className="mentors-bg-text">MENTORS</div>
+      {/* ✅ Background image set via CSS variable (safe for Vite build) */}
+      <div className="mentors-section" style={{ "--mentor-bg": `url(${bgImage})` }}>
+        <div className="mentors-bg-text"></div>
 
         {/* Floating Badge */}
         <div className="mentors-fixed-badge">
@@ -83,10 +104,18 @@ const SecondPage = () => {
           {/* LEFT BLOCK */}
           <div className="mentors-left-block">
             <div className="mentors-feature-tags">
-              <span><i className="fa fa-book"></i> Free Study Materials</span>
-              <span><i className="fa fa-thumbs-up"></i> 99% Success Rate</span>
-              <span><i className="fa fa-trophy"></i> Accredited</span>
-              <span><i className="fa fa-globe"></i> Online & Offline</span>
+              <span>
+                <i className="fa fa-book"></i> Free Study Materials
+              </span>
+              <span>
+                <i className="fa fa-thumbs-up"></i> 99% Success Rate
+              </span>
+              <span>
+                <i className="fa fa-trophy"></i> Accredited
+              </span>
+              <span>
+                <i className="fa fa-globe"></i> Online & Offline
+              </span>
             </div>
 
             <h2 className="mentors-heading">
@@ -102,16 +131,10 @@ const SecondPage = () => {
             </p>
 
             <div className="mentors-cta-buttons">
-              <button
-                className="btn-solid"
-                onClick={() => navigate("/course-purchase")}
-              >
+              <button className="btn-solid" onClick={() => navigate("/course-purchase")}>
                 Join Now
               </button>
-              <button
-                className="btn-outline"
-                onClick={() => setModalOpen(true)}
-              >
+              <button className="btn-outline" onClick={() => setModalOpen(true)}>
                 Free Counseling
               </button>
             </div>
@@ -138,9 +161,7 @@ const SecondPage = () => {
               role="button"
               tabIndex={0}
               onClick={() => setShowVideo(true)}
-              onKeyDown={(e) =>
-                (e.key === "Enter" || e.key === " ") && setShowVideo(true)
-              }
+              onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && setShowVideo(true)}
               aria-label="Play TathaGat overview video"
               title="Watch on YouTube"
               data-youtube-url={YT_URL}
@@ -164,34 +185,10 @@ const SecondPage = () => {
               </button>
               <h2>Send Us a Message</h2>
               <form className="join-form" onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  onChange={handleChange}
-                  required
-                />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email"
-                  onChange={handleChange}
-                  required
-                />
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone Number"
-                  onChange={handleChange}
-                  required
-                />
-                <input
-                  type="text"
-                  name="address"
-                  placeholder="Address"
-                  onChange={handleChange}
-                  required
-                />
+                <input type="text" name="name" placeholder="Name" onChange={handleChange} required />
+                <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+                <input type="tel" name="phone" placeholder="Phone Number" onChange={handleChange} required />
+                <input type="text" name="address" placeholder="Address" onChange={handleChange} required />
                 <textarea
                   name="message"
                   placeholder="Your Message"
@@ -207,22 +204,20 @@ const SecondPage = () => {
           </div>
         )}
 
-        {/* Video Modal (YouTube: LOtxfzDHcew) */}
+        {/* Video Modal */}
         {showVideo && (
           <div className="video-modal" onClick={() => setShowVideo(false)}>
             <div className="video-modal__dialog" onClick={(e) => e.stopPropagation()}>
-              <button
-                className="video-modal__close"
-                onClick={() => setShowVideo(false)}
-                aria-label="Close video"
-              >
+              <button className="video-modal__close" onClick={() => setShowVideo(false)} aria-label="Close video">
                 ×
               </button>
               <div className="video-embed">
                 <iframe
-                  src={YT_EMBED}
+                  src={YT_EMBED_SAFE || YT_EMBED}
                   title="TathaGat Overview"
                   frameBorder="0"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  loading="lazy"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
                 />
@@ -231,17 +226,15 @@ const SecondPage = () => {
           </div>
         )}
 
-        {/* Sliding Image */}
+        {/* ✅ Sliding Image (ONLY mobile me dikhegi CSS se) */}
         <div className="mentor-slide-container">
-        <LazyLoadImage
-  src={mentorImage}
-  alt="Mentors"
-  className="mentor-slide-in"
-  effect="blur"
-  visibleByDefault   // <-- desktop pe bhi turant load
-/>
-
-          
+          <LazyLoadImage
+            src={mentorImageMobile}
+            alt="Mentors"
+            className="mentor-slide-in"
+            effect="blur"
+            visibleByDefault
+          />
         </div>
       </div>
     </section>

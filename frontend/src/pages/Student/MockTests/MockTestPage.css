@@ -143,7 +143,7 @@
 .year-title {
   font-size: 22px;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: -10px;
   color: #1e293b;
   display: flex;
   align-items: center;
@@ -422,6 +422,7 @@
 }
 
 @media (max-width: 480px) {
+
   /* COMPACT TEST CARDS - Hide description and meta on small screens */
   .test-description {
     display: none;

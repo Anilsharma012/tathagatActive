@@ -10,14 +10,26 @@
 .mentors-section {
   position: relative;
   background-color: #ff8c1a;
+
+  /* ✅ Background image (clean look) */
+  background-image:
+
+    var(--mentor-bg, none);
+  background-size: cover;
+ background-position: center bottom;
+  background-repeat: no-repeat;
+  background-position: 40% 70%;         /* ✅ more bottom visible (best for text) */
+
+
   border-radius: 20px;
   margin-top: -70px;
   overflow: visible;
   color: white;
   padding-top: 60px;
   padding-bottom: 60px;
-  height: 100vh;
+  height: 110vh;
 }
+
 /* MENTORS text in background */
 .mentors-bg-text {
   position: absolute;
@@ -32,6 +44,7 @@
   pointer-events: none;
   z-index: 0;
 }
+
 .mentors-fixed-badge {
   position: absolute;
   top: -20px;
@@ -45,9 +58,8 @@
   font-size: 16px;
   z-index: 10;
 
-  /* 👇👇👇 this is the key fix 👇👇👇 */
-  width: 430px;                 /* ✅ FIXED width — based on longest badge */
-  height: 52px;                 /* ✅ FIXED height */
+  width: 430px;
+  height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -83,13 +95,13 @@
 }
 
 .mentors-feature-tags {
-  max-width: 650px; /* ✅ fix width to prevent wrapping */
+  max-width: 650px;
   width: 100%;
   display: flex;
   flex-wrap: nowrap;
   gap: 20px;
   padding-left: 20px;
-  font-weight:  500;
+  font-weight: 500;
   margin-bottom: 25px;
   font-size: 20px;
   color: #fff;
@@ -104,7 +116,6 @@
   display: block;
   text-align: left;
   color: #fff;
-
   padding-left: 20px;
 }
 
@@ -169,65 +180,39 @@
   align-items: flex-end;
   gap: 10px;
   padding-left: 20px;
-
 }
 
 .mentors-tab-buttons {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 buttons per row */
-  gap:10px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
   margin-top: 10px;
-  justify-content: flex-end;
-  width: 100%; /* ensure buttons take full available width */
-  max-width: 360px; /* optional: adjust as needed */
-}
-
-
-.mentors-tab-buttonss {
-  display: grid;
-  
-  grid-template-columns: repeat(3, 1fr); /* 3 buttons per row */
-   gap:10px; 
-  justify-content: flex-end;
-  
-  width: 100%; /* ensure buttons take full available width */
-  max-width: 430px; /* optional: adjust as needed */
-}
-/* .mentors-tab-buttonss {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); 
- 
   justify-content: flex-end;
   width: 100%;
   max-width: 360px;
-} */
+}
 
+.mentors-tab-buttonss {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 430px;
+}
 
 @media (max-width: 600px) {
-  .mentors-tab-buttons {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .mentors-tab-buttons { grid-template-columns: repeat(2, 1fr); }
+  .mentors-tab-buttonss { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 400px) {
-  .mentors-tab-buttons {
-    grid-template-columns: repeat(1, 1fr);
-  }
+  .mentors-tab-buttons { grid-template-columns: repeat(1, 1fr); }
+  .mentors-tab-buttonss { grid-template-columns: repeat(1, 1fr); }
 }
 
-
-@media (max-width: 600px) {
-  .mentors-tab-buttonss {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 400px) {
-  .mentors-tab-buttonss {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-.mentors-tab-buttons button {
+.mentors-tab-buttons button,
+.mentors-tab-buttonss button {
   background-color: white;
   color: #0a1172;
   border: 1px solid #0a1172;
@@ -235,22 +220,11 @@
   border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
-  /* gap: 12px; */
   cursor: pointer;
 }
 
 .mentors-tab-buttonss button {
-  background-color: white;
-  color: #0a1172;
-  /* gap: 20px; */
-  border: 1px solid #0a1172;
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 14px;
   max-height: 50px;
-  font-weight: 600;
-  /* gap: 30px; */
-  cursor: pointer;
 }
 
 .mentors-video-block {
@@ -274,8 +248,9 @@
   margin-right: 12px;
 }
 
-/* Sliding image */
+/* ✅ Sliding image - Desktop pe hide */
 .mentor-slide-container {
+  display: none;              /* ✅ desktop image hata diya */
   position: absolute;
   bottom: 0;
   left: 0;
@@ -285,7 +260,7 @@
   z-index: 99;
   pointer-events: none;
 }
- 
+
 .mentor-slide-in {
   position: absolute;
   bottom: -100%;
@@ -298,27 +273,13 @@
 }
 
 @keyframes mentorSlide {
-  0% {
-    bottom: -100%;
-    opacity: 0;
-  }
-  10% {
-    bottom: 0;
-    opacity: 1;
-  }
-  70% {
-    bottom: 0;
-    opacity: 1;
-  }
-  80% {
-    bottom: -100%;
-    opacity: 0;
-  }
-  100% {
-    bottom: -100%;
-    opacity: 0;
-  }
+  0% { bottom: -100%; opacity: 0; }
+  10% { bottom: 0; opacity: 1; }
+  70% { bottom: 0; opacity: 1; }
+  80% { bottom: -100%; opacity: 0; }
+  100% { bottom: -100%; opacity: 0; }
 }
+
 .join-modal-overlay {
   position: fixed;
   top: 0;
@@ -370,6 +331,7 @@
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 16px;
+  color: #000;
 }
 
 .submit-btn {
@@ -389,42 +351,20 @@
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-/* RESPONSIVE FIXES - Only changes below this line */
-
+/* RESPONSIVE FIXES */
 @media (max-width: 768px) {
-  .mentors-wrapper {
-    padding: 0px 20px;
-  }
+  .mentors-wrapper { padding: 0px 20px; }
+  .mentors-section { padding: 40px 20px; height: auto; }
 
-  .mentors-section {
-    padding: 40px 20px;
-    height: auto;
-  }
+  .mentors-bg-text { font-size: 80px; top: auto; bottom: 10px; }
 
-  .mentors-bg-text {
-    font-size: 80px;
-    top: auto;
-    bottom: 10px;
-  }
+  .mentors-grid { flex-direction: column; align-items: center; gap: 30px; }
 
-  .mentors-grid {
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-  }
-
-  .mentors-left-block,
-  .mentors-right-block {
+  .mentors-left-block, .mentors-right-block {
     max-width: 100%;
     margin-left: -10px;
     text-align: center;
@@ -439,17 +379,8 @@
     font-size: 16px;
   }
 
-  .mentors-heading {
-    font-size: 32px;
-    text-align: center;
-    padding-left: 0;
-  }
-
-  .mentors-desc {
-    font-size: 16px;
-    text-align: center;
-    padding-left: 0;
-  }
+  .mentors-heading { font-size: 32px; text-align: center; padding-left: 0; }
+  .mentors-desc { font-size: 16px; text-align: center; padding-left: 0; }
 
   .mentors-cta-buttons {
     flex-direction: row;
@@ -458,38 +389,22 @@
     padding-left: 0;
   }
 
-  .btn-solid,
-  .btn-outline {
+  .btn-solid, .btn-outline {
     width: 90%;
     max-width: 300px;
     font-size: 16px;
   }
 
-  .mentors-tab-buttons {
-    grid-template-columns: repeat(2, 1fr);
-    justify-content: center;
-    max-width: 100%;
-    display: none;
-  }
+  .mentors-tab-buttons, .mentors-tab-buttonss { display: none; }
 
-  .mentors-tab-buttonss {
-    grid-template-columns: repeat(2, 1fr);
-    justify-content: center;
-    max-width: 100%;
-    display: none;
-  }
-  .mentors-video-block {
-    position: static;
-    margin: 0 auto;
-    top: 0;
-    right: 0;
-  }
+  .mentors-video-block { position: static; margin: 0 auto; top: 0; right: 0; }
 
+  /* ✅ Mobile pe slide image ON */
   .mentor-slide-container {
+    display: flex;            /* ✅ mobile me show */
     position: relative;
     width: 100%;
     height: auto;
-    display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 40px;
@@ -525,33 +440,12 @@
 }
 
 @media (max-width: 480px) {
-  .mentors-wrapper {
-    padding: 0px 16px;
-  }
+  .mentors-wrapper { padding: 0px 16px; }
+  .mentors-section { padding: 30px 16px; margin-top: -160px; }
+  .mentors-bg-text { font-size: 68px; bottom: 9px; text-align: center; }
 
-  .mentors-section {
-    padding: 30px 16px;
-    margin-top: -160px;
-  }
-
-  .mentors-bg-text {
-    font-size: 68px;
-    bottom: 9px;
-    text-align: center;
-    /* display: none; */
-  }
-
-  .mentors-heading {
-    font-size: 26px;
-    text-align: center;
-    padding-left: 0;
-  }
-
-  .mentors-desc {
-    font-size: 14px;
-    padding-left: 0;
-    text-align: center;
-  }
+  .mentors-heading { font-size: 26px; text-align: center; padding-left: 0; }
+  .mentors-desc { font-size: 14px; padding-left: 0; text-align: center; }
 
   .mentors-feature-tags {
     font-size: 14px;
@@ -568,42 +462,16 @@
     padding-left: 0;
   }
 
-  .btn-solid,
-  .btn-outline {
+  .btn-solid, .btn-outline {
     width: 100%;
     max-width: 260px;
     font-size: 14px;
   }
- .mentors-tab-buttonss {
-    grid-template-columns: 1fr;
-    max-width: 100%;
-    display: none;
-  }
-  .mentors-tab-buttons {
-    grid-template-columns: 1fr;
-    max-width: 100%;
-    display: none;
-  }
 
-  .mentors-video-block {
-    width: 100%;
-    height: auto;
-    margin: 0 auto;
-  }
+  .mentors-video-block { width: 100%; height: auto; margin: 0 auto; }
 
-  .mentor-slide-container {
-    margin-top: 30px;
-    overflow-x: hidden;
-    justify-content: center;
-  }
-
-  .mentor-slide-in {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    display: block;
-    animation: none;
-  }
+  .mentor-slide-container { margin-top: 30px; overflow-x: hidden; justify-content: center; }
+  .mentor-slide-in { width: 100%; max-width: 100%; height: auto; display: block; animation: none; }
 
   .mentors-fixed-badge {
     font-size: 14px;
@@ -615,17 +483,15 @@
   }
 }
 
-
-
-
-
-
-
-
-
 /* clickable feel for the video trigger */
-.mentors-video-block--clickable { cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; }
-.mentors-video-block--clickable:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,.25); }
+.mentors-video-block--clickable {
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.mentors-video-block--clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.25);
+}
 .mentors-video-block--clickable:active { transform: translateY(0); }
 
 /* VIDEO MODAL */
@@ -633,9 +499,8 @@
   position: fixed; inset: 0;
   background: rgba(0,0,0,.6);
   display: grid; place-items: center;
-  z-index: 1100; /* join-modal-overlay is 1000 */
+  z-index: 1100;
 }
-
 .video-modal__dialog{
   width: min(900px, 92vw);
   background: #000;
@@ -644,15 +509,12 @@
   position: relative;
   overflow: hidden;
 }
-
 .video-modal__close{
   position: absolute; top: 8px; right: 12px;
   font-size: 28px; line-height: 1;
   background: transparent; border: 0; color: #fff;
   cursor: pointer; z-index: 2;
 }
-
-/* keep 16:9 responsive video */
 .video-embed{
   position: relative; width: 100%;
   aspect-ratio: 16 / 9;
@@ -660,4 +522,22 @@
 .video-embed iframe{
   position: absolute; inset: 0;
   width: 100%; height: 100%;
+}
+
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+  .mentors-section {
+    /* ✅ mobile pe image background band */
+    background-image: none !important;
+    background-color: #ff8c1a; /* ✅ wahi purana color */
+  }
+
+  
 }

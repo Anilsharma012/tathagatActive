@@ -8,6 +8,10 @@ import three from "../../images/three3.png";
 import review from "../../images/REVIEW5.PNG";
 import frame from "../../images/frameCourse.png";
 
+
+import Chatbox from "../../components/Chat/Chatbox";
+
+
 const defaultInstructors = [
   { name: "Rajat Tathagat", expertise: "Quant/LRDI", imageUrl: three },
   { name: "Kumar Abhishek", expertise: "Verbal", imageUrl: two },
@@ -617,7 +621,10 @@ const CoursePurchase = () => {
       <div className="cat-journey-wrapper">
         <img src={frame} alt="CAT Learning Journey" className="journey-image" />
       </div>
+      <Chatbox />
     </div>
+
+
   );
 };
 

@@ -19,7 +19,7 @@ body {
 .tgz-hero-left {
   width: 100%;
   background-color: #1a237e;
-  color: white;
+  color: white;   
   padding: 30px 20px;
   order: 1;
 }
@@ -1225,11 +1225,25 @@ margin-left: 1100px;
   gap: 20px;
   animation: scroll-left 20s linear infinite;
 }
-
+/* 
 .testimonial-track img {
   height: 180px;
+  width: 500px;
+  border-radius: 10px;
+} */
+
+  
+.testimonial-track img{
+  height: 190px;
+  width: 500px !important;     /* ✅ force width */
+  max-width: none !important;  /* ✅ kisi global img rule se cap na ho */
   border-radius: 10px;
 }
+
+
+
+
+
 
 
 .tt-testimonial-item{

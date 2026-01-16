@@ -123,8 +123,8 @@ const ScoreCard = () => {
           </div>
           <div className="scorecard-cards">
             <div className="card-box">
-              <div className="card-title">500+</div>
-              <div className="card-text">students scored 99+ percentile in CAT 2024</div>
+              <div className="card-title">700+</div>
+              <div className="card-text">students scored 99+ percentile in CAT 2025</div>
             </div>
             <div className="card-box">
               <div className="card-title">98%ILE</div>

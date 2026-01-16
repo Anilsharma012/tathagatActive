@@ -10,6 +10,9 @@ import { FiArrowUpRight } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import http from "../../utils/http";
 
+import Chatbox from "../../components/Chat/Chatbox";
+
+
 const categories = [
   "All", "Top Blogs", "Topper's Journey", "MBA",
   "CAT", "IPMAT", "CUET", "Info Exam", "B-Schools"
@@ -240,31 +243,8 @@ const OurBlogs = () => {
       </div>
 
       <FAQ />
-
-      <div className="floating-chat">
-        <div className="chat-options">
-          <a
-            href="https://wa.me/919205534439"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="chat-option whatsapp"
-          >
-            Chat on WhatsApp
-          </a>
-          <a
-            href="https://t.me/freecatprep"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="chat-option telegram"
-          >
-            Chat on Telegram
-          </a>
-          <a href="tel:9205534439" className="chat-option call">
-            Make a call
-          </a>
-        </div>
-        <button className="chat-toggle">&#9742;</button>
-      </div>
+<Chatbox />
+      
     </div>
   );
 };

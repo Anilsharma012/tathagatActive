@@ -224,20 +224,20 @@ const Team = () => {
         </div>
 
         {/* ✅ Testimonial slider — seamless, no blank/pause */}
-        <div className='testimonial-part'>
+         <div className='testimonial-part1'>
           <h2 className="testimonial-heading">Testimonial</h2>
           <div className="testimonial-slider">
             <div className="testimonial-track">
               {[...testimonials, ...testimonials].map((img, idx) => (
                 <div
-                  className='tt-testimonial-item'
+                  className='tt-testimonial-item1'
                   key={idx}
                   aria-hidden={idx >= testimonials.length}
                 >
                   <img
                     src={img}
                     alt=""
-                    className="tt-testimonial-img"
+                    className="tt-testimonial-img1"
                     loading="eager"
                     decoding="async"
                   />
@@ -246,6 +246,13 @@ const Team = () => {
             </div>
           </div>
         </div>
+
+
+
+
+
+
+
       </div>
 
       <div className="demo-section" ref={demoRef}>

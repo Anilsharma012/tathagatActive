@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./WhySection.css";
 import doubt from "../../images/doubt.png";
 import topicWise from "../../images/topicWiseAnalysis.png";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
 import image8 from "../../images/image 8.png";
 import reviewLast from "../../images/rerviewLast.png";
 import studentsGroup from "../../images/gourp 1.png";
-import youtube from "../../images/youtube.png";
+import youtube from "../../images/Youtubepng-removebg-preview.png";
 
 import review1 from "../../images/Review/1.PNG";
 import review2 from "../../images/Review/2.PNG";
@@ -35,12 +33,23 @@ import review21 from "../../images/Review/Review/33.png";
 import review22 from "../../images/Review/Review/34.png";
 import review23 from "../../images/Review/Review/4.png";
 import review24 from "../../images/Review/Review/5.png";
-// import review25 from "../../images/Review/Review/32.png";
-// import review26 from "../../images/Review/Review/32.png";
 
-
+import review25 from "../../images/Review/Review/82.png";
+import review26 from "../../images/Review/Review/9.png";
+import review27 from "../../images/Review/Review/8.png";
+import review28 from "../../images/Review/Review/4 (1).png";
 
 const PLAYLIST_URL = "https://www.youtube.com/@TGTathagat/playlists";
+
+/* ✅ CAT Reviews: yahan jitni chaho images add/replace kar lo */
+const CAT_REVIEW_IMAGES = [
+  review6, review7, review8,
+  //  review9,
+  // review10, review11, review12, review13,
+  // review14, review15, review16, review17, review18,
+  // review19, review20, review21, review22, review23,
+  // review24, review25, review26, review27, review28
+];
 
 const cardDetails = [
   {
@@ -73,7 +82,6 @@ const cardDetails = [
       "TathaGat offers Unlimited 1-to-1 Doubt Sessions, Round-the-Clock Assistance, and Live Class Doubts resolution, ensuring every student gets instant support, personalized guidance, and real-time clarity to strengthen their understanding and boost confidence.",
     type: "review",
     reviewImg: doubt,
-    // badge: "3",
     styleClass: "card-style-3",
   },
   {
@@ -122,25 +130,22 @@ const cardDetails = [
   {
     title: "CAT Aspirant’s Reviews",
     desc: "",
-    img: reviewLast,
+    img: reviewLast,            // (not used now; we show gallery instead)
     buttonText: "View More",
     styleClass: "card-style-10",
   },
 ];
 
-// per-card modal images (unique sets)
-// fallback: review1..5 if not provided
 const modalAssets = {
-  "Concept and Practice": [review16, review20, review17],
-  "Important Note": [ review4,review18,review19,review1],
+  "Concept and Practice": [review16, review20, review17, review1],
+  "Important Note": [review4, review18, review19, review1, review27],
   "Doubt Sessions": [review23, review1, review2, review3],
-  "24*7 Support": [review21,review22],
-  "Workshops": [review5,review22, review2,review24],
+  "24*7 Support": [review21, review22, review25, review26],
+  "Workshops": [review5, review22, review2, review24],
   "Recorded Live Lectures": [review14, review4, review1],
-  "Topic Wise Analysis": [topicWise, review12, review3],
-  "Tests": [review11, review13, review15],
-  "CAT Aspirant’s Reviews": [review1, review10, review3, review4, review5],
-  // "FREE YouTube Lectures": special case (open link, no modal)
+  "Topic Wise Analysis": [topicWise, review12, review3, review28],
+  "Tests": [review11, review13, review15, review8],
+  "CAT Aspirant’s Reviews": CAT_REVIEW_IMAGES,
 };
 
 const splitCardsInTwo = (cards) => {
@@ -165,6 +170,55 @@ const WhySection = () => {
   };
 
   const closeModal = () => setIsModalOpen(false);
+
+  /* ✅ Only CAT Reviews card: vertical auto-scroll (ping-pong) */
+  const catVPortRef = useRef(null);
+  useEffect(() => {
+    const el = catVPortRef.current;
+    if (!el) return;
+
+    let rafId;
+    let dir = 1;                 // 1 = down, -1 = up
+    let paused = false;
+    let last = null;
+    const SPEED = 0.05;          // px per ms (tweak speed here)
+
+    const tick = (t) => {
+      if (last == null) last = t;
+      const dt = t - last;
+      last = t;
+
+      const max = el.scrollHeight - el.clientHeight;
+      if (!paused && max > 0) {
+        el.scrollTop = Math.min(Math.max(el.scrollTop + dir * SPEED * dt, 0), max);
+        if (el.scrollTop >= max) dir = -1;
+        else if (el.scrollTop <= 0) dir = 1;
+      }
+      rafId = requestAnimationFrame(tick);
+    };
+
+    const pause = () => { paused = true; };
+    const resume = () => { paused = false; last = null; };
+
+    el.addEventListener("mouseenter", pause);
+    el.addEventListener("mouseleave", resume);
+    el.addEventListener("touchstart", pause, { passive: true });
+    el.addEventListener("touchend", resume);
+
+    rafId = requestAnimationFrame(tick);
+
+    const onResize = () => { last = null; };
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      el.removeEventListener("mouseenter", pause);
+      el.removeEventListener("mouseleave", resume);
+      el.removeEventListener("touchstart", pause);
+      el.removeEventListener("touchend", resume);
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
 
   return (
     <div>
@@ -192,7 +246,7 @@ const WhySection = () => {
 
           {/* Right Scroll Area */}
           <div className="wt-right-scroll">
-            {/* Left Column */}
+            {/* Left Column (as-is) */}
             <div className="wt-scroll-column">
               <div className="wt-scroll-wrapper">
                 {leftCards.map((card, index) => (
@@ -204,7 +258,6 @@ const WhySection = () => {
 
                     {card.desc && <p className="wt-card-desc">{card.desc}</p>}
 
-                    {/* Accordion */}
                     {card.type === "accordion" && (
                       <>
                         <div className="card-accordion">
@@ -226,7 +279,6 @@ const WhySection = () => {
                       </>
                     )}
 
-                    {/* Important Note -> open modal */}
                     {card.title === "Important Note" && (
                       <div style={{ textAlign: "left", marginTop: "10px" }}>
                         <button
@@ -238,19 +290,17 @@ const WhySection = () => {
                       </div>
                     )}
 
-                    {/* 24*7 Support -> open modal */}
                     {card.title === "24*7 Support" && (
                       <div style={{ textAlign: "left", marginTop: "10px" }}>
                         <button
                           className="call-now-btn"
                           onClick={() => openModal(card.title, card.desc, getImagesFor(card.title))}
                         >
-                          Call Now <span className="phone-icon">📞</span>
+                          View more
                         </button>
                       </div>
                     )}
 
-                    {/* Workshops -> open modal */}
                     {card.title === "Workshops" && (
                       <div style={{ textAlign: "left", marginTop: "10px" }}>
                         <button
@@ -262,7 +312,6 @@ const WhySection = () => {
                       </div>
                     )}
 
-                    {/* Doubt Sessions (LEFT COLUMN) -> open modal */}
                     {card.title === "Doubt Sessions" && (
                       <>
                         <h4 className="review-subheading">
@@ -283,7 +332,6 @@ const WhySection = () => {
                       </>
                     )}
 
-                    {/* Topic Wise Analysis -> open modal */}
                     {card.title === "Topic Wise Analysis" && (
                       <div style={{ textAlign: "left", marginTop: "10px" }}>
                         <button
@@ -302,8 +350,44 @@ const WhySection = () => {
             {/* Right Column */}
             <div className="wt-scroll-column">
               <div className="wt-scroll-wrapper">
-                {rightCards.map((card, index) =>
-                  card.title !== "Important Note" ? (
+                {rightCards.map((card, index) => {
+                  /* ✅ SPECIAL: CAT Aspirant’s Reviews → vertical scroller inside card */
+                  if (card.title === "CAT Aspirant’s Reviews") {
+                    return (
+                      <div className={`wt-header-card ${card.styleClass}`} key={index}>
+                        <h3 className="wt-card-title">{card.title}</h3>
+
+                        <div className="wt-vreview-viewport" ref={catVPortRef}>
+                          <div className="wt-vreview-column">
+                            {CAT_REVIEW_IMAGES.map((src, i) => (
+                              <img
+                                key={i}
+                                src={src}
+                                alt={`CAT Review ${i + 1}`}
+                                className="wt-vreview-img"
+                                loading="eager"
+                                decoding="async"
+                              />
+                            ))}
+                          </div>
+                        </div>
+
+                        <div style={{ marginTop: 10, textAlign: "left" }}>
+                          <button
+                            className="view-more-btn"
+                            onClick={() =>
+                              openModal(card.title, card.desc, CAT_REVIEW_IMAGES)
+                            }
+                          >
+                            View More <span className="arrow-box">↗</span>
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  /* 🔽 baaki cards as-is */
+                  return (
                     <div className={`wt-header-card ${card.styleClass}`} key={index}>
                       {card.title && <h3 className="wt-card-title">{card.title}</h3>}
                       {card.desc && <p className="wt-card-desc">{card.desc}</p>}
@@ -311,7 +395,6 @@ const WhySection = () => {
                         <img src={card.img} alt={card.title} className="wt-card-img" />
                       )}
 
-                      {/* Tests -> modal */}
                       {card.title === "Tests" && (
                         <div style={{ textAlign: "left", marginTop: "10px" }}>
                           <button
@@ -323,7 +406,6 @@ const WhySection = () => {
                         </div>
                       )}
 
-                      {/* FREE YouTube Lectures -> open external link (button + image) */}
                       {card.title === "FREE YouTube Lectures" && (
                         <div
                           style={{
@@ -347,19 +429,17 @@ const WhySection = () => {
                         </div>
                       )}
 
-                      {/* Recorded Live Lectures -> modal */}
                       {card.title === "Recorded Live Lectures" && (
                         <div style={{ textAlign: "left", marginTop: "10px" }}>
                           <button
                             className="view-more-btn"
                             onClick={() => openModal(card.title, card.desc, getImagesFor(card.title))}
-                          > 
+                          >
                             View More <span className="arrow-box">↗</span>
                           </button>
                         </div>
                       )}
 
-                      {/* (Right column me Doubt Sessions future-proof) */}
                       {card.title === "Doubt Sessions" && (
                         <>
                           {card.badge && <span className="red-badge">{card.badge}</span>}
@@ -381,8 +461,8 @@ const WhySection = () => {
                         </>
                       )}
                     </div>
-                  ) : null
-                )}
+                  );
+                })}
               </div>
             </div>
           </div>

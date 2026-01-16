@@ -72,8 +72,8 @@ export default function FirstPage() {
         <div className="firstpage-hero-left">
           <p className="firstpage-hero-tagline">DREAM BIG. PREPARE SMART. ACHIEVE MORE.</p>
           <h1 className="firstpage-hero-heading">
-            Start Your Journey<br />
-            Towards a <span className="highlight">99%ile!</span>
+            700+   99 Percentilers<br />
+            in CAT 2025! <span className="highlight"></span>
           </h1>
         </div>
 

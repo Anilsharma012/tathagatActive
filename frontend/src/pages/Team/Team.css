@@ -251,7 +251,7 @@
   height: 200px;
 }
 
-.testimonial-part{
+.testimonial-part1{
     /* margin-left: 470px; */
     position: relative;
     left: 470px;
@@ -297,13 +297,15 @@
   animation: scroll-left 20s linear infinite;
 }
 
-.testimonial-track img {
-  height: 180px;
+.testimonial-track img{
+  height: 190px;
+  width: 500px !important;     /* ✅ force width */
+  max-width: none !important;  /* ✅ kisi global img rule se cap na ho */
   border-radius: 10px;
 }
 
 
-.tt-testimonial-item{
+.tt-testimonial-item1{
     border: 1px solid #FFC107;
     background-color: #FFC107;
     padding: 10px 15px;
@@ -856,7 +858,7 @@
     align-items: center;
   }
 /* ===== Testimonial (Auto Marquee, Seamless) ===== */
-.testimonial-part {
+.testimonial-part1{
   margin-top: 16px;
   padding: 0 10px;
 }
@@ -885,7 +887,7 @@
   backface-visibility: hidden;
 }
 
-.tt-testimonial-item {
+.tt-testimonial-item1 {
   flex: 0 0 240px;            /* card width */
   padding: 10px;
   font-size: 14px;
@@ -893,7 +895,7 @@
   background-color: #ffc107;
 }
 
-.tt-testimonial-img {
+.tt-testimonial-img1 {
   display: block;             /* remove inline-gap */
   width: 100%;
   height: auto;

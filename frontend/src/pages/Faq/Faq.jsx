@@ -4,6 +4,9 @@ import faqImage from "../../images/faqOne.png";
 import { useNavigate } from "react-router-dom";
 import http from "../../utils/http";
 
+import Chatbox from "../../components/Chat/Chatbox";
+
+
 // 🟦 Category-wise FAQs
 const FAQ_DATA = {
   "Course & Curriculum": [
@@ -328,9 +331,11 @@ const Faq = () => {
               </div>
             </form>
           </div>
+            
         </div>
       )}
       {/* ================= END POPUP MODAL ================= */}
+       <Chatbox />
     </>
   );
 };

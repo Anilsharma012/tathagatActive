@@ -885,24 +885,19 @@ const MockTest = () => {
           )}
         </div>
       </div>
-
-      <div className="cat-info-container">
+  <div className="cat-info-container">
         <div className="tm-left-section">
           <section className="section">
             <h2>What is CAT?</h2>
             <p>
-              The Common Admission Test (CAT) is India's most prestigious
-              management entrance exam, conducted annually by the Indian
-              Institutes of Management (IIMs). It is the gateway to more than 20
-              IIMs and hundreds of top-tier B-Schools like FMS Delhi, MDI
-              Gurgaon, SPJIMR Mumbai, and IMT Ghaziabad.
+              The Common Admission Test (CAT) is India’s most prestigious management entrance exam, conducted annually by
+              the Indian Institutes of Management (IIMs). It is the gateway to more than 20 IIMs and hundreds of top-tier
+              B-Schools like FMS Delhi, MDI Gurgaon, SPJIMR Mumbai, and IMT Ghaziabad.
             </p>
             <p>
-              CAT tests your aptitude in areas that are critical for success in
-              management - logical reasoning, quantitative thinking, verbal
-              skills, and data interpretation. It doesn't just measure academic
-              knowledge; it evaluates decision-making under time pressure - a
-              crucial skill for future managers.
+              CAT tests your aptitude in areas that are critical for success in management — logical reasoning,
+              quantitative thinking, verbal skills, and data interpretation. It doesn’t just measure academic knowledge; it
+              evaluates decision-making under time pressure — a crucial skill for future managers.
             </p>
           </section>
 
@@ -910,152 +905,93 @@ const MockTest = () => {
             <h2>Why CAT Matters</h2>
             <div className="benefits">
               <div className="benefit-box">
-                Gateway to Top B-Schools:
-                <br />
-                <span>
-                  CAT scores are accepted by 1000+ institutions including all
-                  IIMs.
-                </span>
+                🎓 Gateway to Top B-Schools:<br />
+                <span>CAT scores are accepted by 1000+ institutions including all IIMs.</span>
               </div>
               <div className="benefit-box">
-                Lucrative Career Paths:
-                <br />
-                <span>
-                  B-school placements lead to high-paying roles in consulting,
-                  finance, marketing, and leadership.
-                </span>
+                💼 Lucrative Career Paths:<br />
+                <span>B-school placements lead to high-paying roles in consulting, finance, marketing, and leadership.</span>
               </div>
               <div className="benefit-box">
-                National Recognition:
-                <br />
-                <span>
-                  CAT scores are trusted across India as a standard of
-                  excellence.
-                </span>
+                🌐 National Recognition:<br />
+                <span>CAT scores are trusted across India as a standard of excellence.</span>
               </div>
               <div className="benefit-box">
-                Life-Changing Opportunity:
-                <br />
+                🚀 Life-Changing Opportunity:<br />
                 <span>
-                  A good CAT score can open doors to premier education, global
-                  exposure, and high-impact careers.
+                  A good CAT score can open doors to premier education, global networking, and leadership training.
                 </span>
               </div>
             </div>
           </section>
 
           <section className="section">
-            <h2>CAT 2026 Exam Pattern</h2>
-            <div className="responsive-table-container">
-              <table className="pattern-table">
-                <thead>
-                  <tr>
-                    <th>Section</th>
-                    <th>Questions</th>
-                    <th>Time</th>
-                    <th>Marks</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>VARC</td>
-                    <td>24</td>
-                    <td>40 min</td>
-                    <td>72</td>
-                  </tr>
-                  <tr>
-                    <td>DILR</td>
-                    <td>20</td>
-                    <td>40 min</td>
-                    <td>60</td>
-                  </tr>
-                  <tr>
-                    <td>QA</td>
-                    <td>22</td>
-                    <td>40 min</td>
-                    <td>66</td>
-                  </tr>
-                  <tr className="total-row">
-                    <td>
-                      <strong>Total</strong>
-                    </td>
-                    <td>
-                      <strong>66</strong>
-                    </td>
-                    <td>
-                      <strong>120 min</strong>
-                    </td>
-                    <td>
-                      <strong>198</strong>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <h2>Why Solve CAT Previous Year Papers?</h2>
+            <p>
+              Solving CAT previous year papers is one of the most effective strategies for facing the exam. These papers
+              provide a real-time glimpse into the exam’s structure, difficulty level, and question trends, helping
+              aspirants develop familiarity with the actual CAT format. They allow students to identify recurring
+              concepts, high-weightage topics, and the level of logical reasoning expected by the examiners.
+            </p>
+            <p>
+              More importantly, attempting these papers under timed conditions builds crucial exam temperament—enhancing
+              speed, accuracy, and time management. Post-analysis of previous year questions also helps uncover weak
+              areas, refine problem-solving strategies, and boost confidence.
+            </p>
           </section>
 
           <section className="section">
-            <h2>CAT 2026 Important Dates</h2>
-            <div className="responsive-table-container">
-              <table className="dates-table">
-                <thead>
-                  <tr>
-                    <th>Event</th>
-                    <th>Date (Expected)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Registration Begins</td>
-                    <td>August 2026</td>
-                  </tr>
-                  <tr>
-                    <td>Registration Ends</td>
-                    <td>September 2026</td>
-                  </tr>
-                  <tr>
-                    <td>Admit Card Release</td>
-                    <td>October 2026</td>
-                  </tr>
-                  <tr>
-                    <td>Exam Date</td>
-                    <td>November 2026</td>
-                  </tr>
-                  <tr>
-                    <td>Result Declaration</td>
-                    <td>January 2027</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <h2>Mock Tests: Your Key to CAT Success</h2>
+            <p>
+              Mock tests play a critical role in CAT preparation. They replicate the actual exam environment, helping
+              students build endurance, manage time efficiently, and test conceptual clarity. Attempting full-length mocks
+              and section-wise tests regularly enables aspirants to experiment with different strategies and find what
+              works best.
+            </p>
+            <p>
+              Detailed performance analysis after each mock test helps track progress, identify gaps, and fine-tune
+              preparation. It’s not just about practice—mock tests train the mind to stay sharp, calm, and confident under
+              pressure.
+            </p>
           </section>
         </div>
 
         <div className="tm-right-section">
-          <div className="course-cta-card">
-            <h3>Ready to Crack CAT 2026?</h3>
-            <p>
-              Join TathaGat's comprehensive CAT preparation program and get
-              access to expert faculty, extensive study materials, and
-              personalized mentoring.
-            </p>
-            <button
-              className="cta-button"
-              onClick={() => navigate("/course-details")}
-            >
-              Explore Our Courses
-            </button>
+          <div className="ta-course-card">
+            <h3>
+              CAT 2026
+              <br />
+              Advance Course
+            </h3>
+            <ul className="ta-highlights">
+              <li>700 hrs Live Classes</li>
+              <li>LOD 1, 2 3 & other</li>
+              <li>24 x 7 Doubt solving</li>
+              <li>50 Mocks on OMETs with complete solution</li>
+              <li>30 Mocks tests with complete solution</li>
+              <li>45 sectional Tests with complete solutions</li>
+              <li>Printed books</li>
+            </ul>
+            <div className="course-buttons">
+              {/* ✅ Both buttons now go to /GetInTouch */}
+              <button className="enquire-btn" onClick={goToContact}>
+               Enquiry Form
+              </button>
+              <button className="proceed-btn" onClick={goToContact}>
+                Checkout Page
+              </button>
+            </div>
           </div>
 
-          <div className="contact-cta-card">
-            <h3>Have Questions?</h3>
-            <p>
-              Our counselors are here to help you choose the right program for
-              your CAT preparation journey.
-            </p>
-            <button className="cta-button secondary" onClick={goToContact}>
-              Contact Us
-            </button>
+          <div className="series-list">
+            <h4>Other Packages</h4>
+            <ul>
+              <li>CAT + OMET 2025/2026 ONLINE COURSE </li>
+              <li>CAT + OMET 2025/2026 OFFLINE COURSE </li>
+              <li>WORKSHOPS</li>
+              <li>TEST SERIES</li>
+              <li>BOOKS + TEST SERIES</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -1066,3 +1002,4 @@ const MockTest = () => {
 };
 
 export default MockTest;
+ 

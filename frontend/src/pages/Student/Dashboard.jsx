@@ -7,6 +7,9 @@ import DiscussionForum from "../../components/DiscussionForum/DiscussionForum";
 import MockTestPage from "./MockTests/MockTestPage";
 import StudentLiveClasses from "./LiveClasses/StudentLiveClasses";
 import { fetchLiveClasses } from "../../utils/liveClassesApi";
+
+
+ import { Link } from "react-router-dom";
 import {
   getCache as getLiveCache,
   setCache as setLiveCache,
@@ -3669,12 +3672,21 @@ const StudentDashboard = () => {
       {/* Sidebar */}
       <div className={`lms-sidebar ${sidebarOpen ? "open" : ""}`}>
         <div className="sidebar-header">
-          <div className="logo">
-            {/* ⬇️ yeh naya image element */}
-            <img src={logo} alt="TathaGat LMS" className="logo-img" />
-            {/* agar text nahi chahiye to <h2> hata do; rakhna ho to isse rehne do */}
-            {/* <h2>TathaGat LMS</h2> */}
-          </div>
+
+
+        
+
+<div className="logo">
+  <Link to="/" className="logo-link" aria-label="Go to Home">
+    <img src={logo} alt="TathaGat LMS" className="logo-img" />
+  </Link>
+
+  {/* <h2>TathaGat LMS</h2> */}
+</div>
+
+
+
+
           <button
             className="close-sidebar"
             onClick={() => setSidebarOpen(false)}

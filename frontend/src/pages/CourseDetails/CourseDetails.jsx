@@ -43,6 +43,11 @@ import ExploreBlog from "../../components/ExploreBlog/ExploreBlog";
 import Mycourse from "../../components/MyCourses/Mycourse";
 import CourseComprasion from "../../components/CourseComprasion/CourseComprasion";
 
+
+import Chatbox from "../../components/Chat/Chatbox";
+
+
+
 const CourseDetails = () => {
   const [showAll, setShowAll] = useState(false);
   const [activeCategory, setActiveCategory] = useState("All");
@@ -257,7 +262,7 @@ const CourseDetails = () => {
               {[...testimonials, ...testimonials].map((img, idx) => (
                 <div
                   className="tt-testimonial-item"
-                  key={idx}
+                  key={idx} 
                   aria-hidden={idx >= testimonials.length}
                 >
                   <img
@@ -269,7 +274,7 @@ const CourseDetails = () => {
                   />
                 </div>
               ))}
-            </div>
+            </div>    
           </div>
         </div>
       </div>
@@ -712,34 +717,8 @@ const CourseDetails = () => {
       </div>
 
       <ExploreBlog />
-
-        <div className="floating-chat">
-        <div className="chat-options">
-          <a
-  href="https://wa.me/919205534439"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="chat-option whatsapp"
->
-  💬 Chat on WhatsApp
-</a>
-
-          <a
-            href="https://t.me/freecatprep"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="chat-option telegram"
-          >
-            📩 Chat on Telegram
-          </a>
-        
-          <a href="tel:9205534439" className="chat-option call">
-            📞 Make a call
-          </a>
-        </div>
-
-        <button className="chat-toggle">✆</button>
-      </div>
+   <Chatbox />
+       
     </div>
   );
 };
